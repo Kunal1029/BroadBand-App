@@ -1,0 +1,387 @@
+.mycircles {
+  height: 20em;
+  position: relative;
+  width: 20em;
+
+  > div {
+    animation: growAndFade 3s infinite ease-out;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .mycircle1 {
+    animation-delay: 1s;
+  }
+  .mycircle2 {
+    animation-delay: 2s;
+  }
+  .mycircle3 {
+    animation-delay: 3s;
+  }
+}
+
+@keyframes growAndFade {
+  0% {
+    opacity: 0.25;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* ripple */
+
+/* .Mywrap {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+} */
+
+.ripplebutton {
+  background: var(--secondary-color);
+  cursor: pointer;
+  /* border: 1px solid white; */
+  color: var(--secondary-color);
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 100%;
+  text-transform: uppercase;
+  font-family: "Muli-LightItalic", Helvetica;
+  font-size: 20px;
+  line-height: 10px;
+  animation: ripple 1.5s linear infinite;
+  transition: all 0.7s ease;
+}
+
+.ripplebutton:hover {
+  transform: scale(1.1);
+}
+
+.ripplebutton:focus {
+  outline: none;
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 var(--secondary-color), 0 0 0 1px var(--secondary-color),
+      0 0 0 3px var(--secondary-color), 0 0 0 5px var(--secondary-color);
+  }
+  100% {
+    box-shadow: 0 0 0 0 var(--secondary-color), 0 0 0 1px var(--secondary-color),
+      0 0 0 10px rgba(255, 255, 255, 0), 0 0 0 20px rgba(255, 255, 255, 0);
+  }
+}
+
+/* ripple end */
+
+/* Gradient animation */
+/* Define a custom property with Houdini API */
+@property --Gradientprogress {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+:root {
+  --c1:var(--primary);
+  --c2: var(--secondary-color);
+  --c3: var(--secondary-color);
+  --c4: var(--secondary-color);
+}
+
+@keyframes Gradientprogress {
+  from {
+    --Gradientprogress: 0%;
+  }
+  to {
+    --Gradientprogress: 100%;
+  }
+}
+
+.Gradientcircle {
+  --Gradientprogress: 60%;
+  /* Check if browser supports Houdini API, then start animation from 0 */
+  @supports (background: paint(houdini)) {
+    --Gradientprogress: 0%;
+  }
+  background: conic-gradient(
+    at center,
+    var(--c1) var(--Gradientprogress),
+    rgba(239, 236, 236, 0.48) var(--Gradientprogress),
+    var(--c2) calc(var(--Gradientprogress) + 20%),
+    var(--c3) calc(var(--Gradientprogress) + 30%),
+    var(--c3) calc(var(--Gradientprogress) + 50%),
+    transparent,
+    transparent,
+    transparent,
+    transparent
+  );
+  animation: Gradientprogress 4s linear infinite;
+  border-radius: 100%;
+  mask: radial-gradient(circle at center, transparent 65%, black 65%);
+  position: absolute;
+  inset: 0;
+}
+
+.Gradientcircle:nth-child(1) {
+  inset: 30px;
+  /* background-color: rebeccapurple; */
+}
+.Gradientcircle:nth-child(2) {
+  inset: 45px;
+  animation-delay: 1s;
+}
+
+.Gradientcircle:nth-child(3) {
+  inset: 60px;
+  animation-delay: 0.5s;
+}
+
+.Gradientcontainer {
+  filter: drop-shadow(0 0 0.2vmin hsla(0, 0%, 0%, 1));
+  position: relative;
+  width: 280px;
+  aspect-ratio: 1;
+  /* border: 2px solid white; */
+}
+
+.Gradientcontainer:after {
+  /* content: "@property 🧙‍♂️✨"; */
+  content: url("../assets/images/FIW.png");
+  font-weight: bold;
+  position: absolute;
+  /* font-size: 25px; */
+  inset: 0;
+  color: white;
+  display: grid;
+  place-items: center;
+  transform: scale(0.3);
+  margin-right:65px;
+  /* width: auto;
+  height: auto; */
+}
+
+.socialMedia {
+  height: 100%;
+  background: linear-gradient(to bottom, #0078d7, #02255d);
+}
+
+.SMapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.SMHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+
+  h1 {
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--primary);
+    color: white;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: white;
+  }
+
+  a {
+    color: var(--primary);
+    color: #fff;
+  }
+}
+.smrow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.SMtag-list {
+  width: 50%;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 1px;
+  /* position: relative; */
+  overflow: hidden;
+}
+
+.SMloop-slider {
+  .SMinner {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 20px;
+    animation-name: SMloop;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: var(--duration);
+    animation-direction: var(--direction);
+  }
+  overflow: hidden;
+  width: 100%;
+}
+
+.SMtag {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  /* color: var(--primary); */
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+  border-radius: 0.4rem;
+  padding: 0.7rem 1rem;
+  margin-right: 15px;
+  /* box-shadow: 
+    0 1px 2px rgb(0 0 0 / 20%),
+    0 1px 0.5px rgb(0 0 0 / 30%),
+    0 2px 1.5px rgb(0 0 0 / 40%); */
+}
+
+.SMtag span img {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+}
+
+.SMfade {
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    #1e293b,
+    transparent 30%,
+    transparent 70%,
+    #1e293b
+  );
+  inset: 0;
+}
+
+@keyframes SMloop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50%));
+  }
+}
+
+@media (max-width: 992px) {
+  .SMapp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .SMtag-list {
+    width: 100%;
+  }
+  .smrow {
+    flex-direction: column;
+  }
+  .SMHeader {
+    margin: 0rem;
+
+    h1 {
+      font-weight: 500;
+      font-size: 2.5rem;
+      color: var(--primary);
+      color: white;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: white;
+    }
+
+    a {
+      color: var(--primary);
+    }
+  }
+  @keyframes SMloop {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-40%));
+    }
+  }
+
+  .SMtag-list {
+    width: 100%;
+  }
+}
+
+@media (max-width: 550px) {
+  .SMHeader {
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
+}
+@media (max-width: 380px) {
+  .SMHeader {
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+
+  .SMloop-slider {
+    .SMinner {
+      margin-bottom: 10px;
+    }
+  }
+
+  .SMtag {
+    margin-right: 1px;
+  }
+
+  .SMtag span img {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+  }
+
+  .mycircles {
+    height: 18em;
+    width: 18em;
+  }  
+}
+
+/* SocialMedia end */

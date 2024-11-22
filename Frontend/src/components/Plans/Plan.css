@@ -1,0 +1,62 @@
+.myplans {
+  position: relative;
+  /* background-image: url(../assets/images/6.png); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background: linear-gradient(to bottom, #0078d7, #02255d);
+  /* height: 100vh; Ensures the background image and color take up full viewport height */
+}
+.mainPlans{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.mainPlans .div1{
+width: 27vw;
+/* height: 350px; */
+border-radius: 15px;
+}
+.mainPlanLine{
+  border: 2px solid gainsboro;
+  width: 24vw;
+  height: 1px;
+}
+.gray{
+  color: rgb(93, 91, 91);
+}
+.valData{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mainPlanBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.SMediaPlan{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.SMtagsPlan{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.SMtagsPlan div img{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.nonOtpSpace{
+  height: 60px;
+}
+.smGap{
+  display: flex;
+  gap: 5px;
+}

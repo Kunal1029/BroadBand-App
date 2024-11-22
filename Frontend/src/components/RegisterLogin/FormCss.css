@@ -1,0 +1,177 @@
+.registerForm {
+  background: linear-gradient(to bottom, #02255d, #0078d7);
+}
+
+.signupSection {
+  /* background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  margin: auto;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.info {
+  margin-top: 9rem;
+  /* background: rgba(20, 20, 20, 0.8); */
+  padding: 30px 10px;
+  /* border-right: 2px solid rgba(30, 30, 30, 0.8); */
+  border-right: 2px solid var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  /* justify-content: ; */
+  margin-bottom: 6rem;
+  align-items: center;
+  h2 {
+    padding-top: 30px;
+    font-weight: 300;
+    margin-top: 30px;
+  }
+  p {
+    font-size: 18px;
+  }
+  .icon {
+    font-size: 8em;
+    /* padding: 20px 0; */
+    color: rgba(10, 180, 180, 1);
+  }
+}
+
+.signupForm {
+  /* width: 70%; */
+  padding: 30px 0;
+  margin-top: 9rem;
+  margin-bottom: 6rem;
+  margin-left: 20px;
+  /* background: rgba(20, 40, 40, 0.8); */
+  transition: 0.2s;
+  h2 {
+    font-weight: 300;
+  }
+}
+
+.inputFields {
+  margin: 15px 0;
+  font-size: 16px;
+  padding: 12px;
+  width: 350px;
+  /* border: 1px solid rgba(10, 180, 180, 1); */
+  border: 1px solid var(--secondary-color);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: rgba(20, 20, 20, 0.2);
+  color: white;
+  outline: none;
+  border-radius: 7px;
+}
+
+.noBullet {
+  list-style-type: none;
+  padding: 0;
+}
+
+#join-btn {
+  border: 1px solid rgba(10, 180, 180, 1);
+  background: rgba(20, 20, 20, 0.6);
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  padding: 10px 50px;
+  cursor: pointer;
+  transition: 0.4s;
+  &:hover {
+    background: rgba(20, 20, 20, 0.8);
+    padding: 10px 80px;
+  }
+}
+
+@media (max-width: 992px) {
+  .inputFields {
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 12px;
+    width: 270px;
+    /* border: 1px solid rgba(10, 180, 180, 1); */
+    border: 1px solid var(--secondary-color);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: rgba(20, 20, 20, 0.2);
+    color: white;
+    outline: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .signupSection {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0rem;
+    margin-left: 0px;
+  }
+  .info {
+    margin-top: 2rem;
+    /* background: rgba(20, 20, 20, 0.8); */
+    padding: 0px 0;
+    border-right: 0;
+    border-bottom: 2px solid var(--secondary-color);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 0rem;
+    h2 {
+      padding-top: 30px;
+      font-weight: 300;
+      margin-top: 30px;
+    }
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .signupForm {
+    /* width: 70%; */
+    padding: 0px 0;
+    margin-top: 0rem;
+
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    /* background: rgba(20, 40, 40, 0.8); */
+    transition: 0.2s;
+    h2 {
+      font-weight: 300;
+    }
+  }
+
+  .inputFields {
+    padding: 12px;
+    width: 26rem;
+    border-radius: 5px;
+  }
+}
+.otherWayBtn {
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px;
+  transition: transform 0.3s ease; /* Specifies a smooth transition for transform */
+}
+
+.otherWayBtn:hover {
+  transform: scale(1.1); /* Applies scaling on hover */
+}
+
+@media (max-width:450px) {
+  .inputFields {
+    width: 17rem;
+  }
+}
+

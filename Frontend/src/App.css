@@ -1,0 +1,50 @@
+.wifiabout {
+  display: flex;
+  justify-content: end;
+}
+
+/* Default navbar behavior (expanded by default on larger screens) */
+.navbar-collapse {
+  max-height: none;
+  opacity: 1;
+  transition: none; /* Disable transitions for larger screens */
+}
+
+.para-light {
+  text-align: justify;
+  word-spacing: 1px;
+}
+
+.loaderBody {
+  /* height: 90vh; */
+  margin-top: 12%;
+  /* background-color: red; */
+  position: fixed;
+  z-index: 10000;
+}
+.loaderRender{
+  opacity: 0.2;
+  transition: ease-in-out;
+}
+
+.Mylayout{
+  background-color: var(--primary-light);
+}
+
+@media (max-width: 992px) {
+  .wifiabout {
+    display: flex;
+    justify-content: center !important ;
+  }
+  .navbar-collapse {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 1s ease, opacity 0.8s ease;
+  }
+
+  .navbar-collapse.show {
+    max-height: 550px;
+    opacity: 1;
+  }
+}
