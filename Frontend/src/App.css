@@ -28,7 +28,12 @@
 }
 
 .Mylayout{
-  background-color: var(--primary-light);
+  background-color: rgba(0, 0, 0, 0.829);
+  position: relative;
+}
+.abs{
+  position: absolute;
+  top: 140px;
 }
 
 @media (max-width: 992px) {
@@ -46,5 +51,11 @@
   .navbar-collapse.show {
     max-height: 550px;
     opacity: 1;
+  }
+}
+@media (max-width:770px) {
+  .abs{
+    position: absolute;
+    top: 280px;
   }
 }

@@ -20,10 +20,11 @@
 //     }
 // }
 
-export const otpVerificationn = (otpExpiration) => {
-    const currentTime = new Date().getTime();
-    const expirationTime = new Date(otpExpiration).getTime();
-  
-    return currentTime > expirationTime; // True if OTP has expired
-  };
-  
+const otpVerification = (otpExpiration) => {
+  const currentTime = new Date().getTime();
+  const expirationTime = new Date(otpExpiration).getTime();
+
+  return currentTime > expirationTime; // True if OTP has expired
+};
+
+module.exports = otpVerification;

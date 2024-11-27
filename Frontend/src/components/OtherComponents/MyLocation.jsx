@@ -12,7 +12,7 @@ function MyLocation() {
               <div className="ms-2">
                 <h6 className="mb-1">ADDRESS</h6>
                 <p style={{ lineHeight: "15px" }}>
-                  Bhanot Market, 1 Turner Road, Majra, Dehradun, Uttarakhand -
+                  Bhanot Market, 1 Turner Road, Majra, Dehradun,<br /> Uttarakhand -
                   248002
                 </p>
               </div>

@@ -13,7 +13,6 @@ import NewUserRegister from './components/RegisterLogin/NewUserRegister';
 import UserLogin from './components/RegisterLogin/UserLogin';
 import DataCheckUp from './DataCheckUp.jsx';
 
-
 function App() {
     return (
         <BrowserRouter>
@@ -28,7 +27,6 @@ function App() {
                     <Route path="maincontact" element={<MainContact />} />
                     <Route path="register" element={<NewUserRegister />} />
                     <Route path="login" element={<UserLogin />} />
-
                     <Route path="/lol" element={<DataCheckUp />} />
                 </Route>
             </Routes>

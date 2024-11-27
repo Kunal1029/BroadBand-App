@@ -1,0 +1,13 @@
+.goalsabt{
+    background-color: aliceblue;
+    color: var(--primary);
+    padding: 30px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.goalsabt ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

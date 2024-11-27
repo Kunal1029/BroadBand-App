@@ -1,7 +1,7 @@
 // import AfterHero from "./AfterHero"
 
 import { Link } from "react-router-dom";
-import Network from "../Animation/Network";
+// import Network from "../Animation/Network";
 
 function Hero() {
   return (
@@ -47,9 +47,9 @@ function Hero() {
         </div>
         {/* <!-- end of container --> */}
       </section>
-      <div className="netHome">
+      {/* <div className="netHome">
         <Network isWifi={false} />
-      </div>
+      </div> */}
 
       {/* <!-- Information --> */}
       <section className="information">

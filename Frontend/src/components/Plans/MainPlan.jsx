@@ -11,6 +11,12 @@ function MainPlan() {
   const dispatch = useDispatch();
   const [withs, setwiths] = useState(false);
   const { allplans, isLoading, error } = useSelector((state) => state.user);
+  const [withOTT, setWithOtt] = useState(allplans)
+  
+  
+  function oots(){
+    console.log(withOTT)
+  }
 
   useEffect(() => {
     dispatch(fetchAllPlans());
@@ -43,6 +49,7 @@ function MainPlan() {
     >
       <div className="container text-light mt-5">
         <div className="text-center pb-4">
+          {/* <button onClick={oots}>is OTT</button> */}
           <p>OUR PLANS</p>
           <h2 className="py-2 mb-3">Explore unlimited possibilities</h2>
           <p className="para-light">
@@ -52,7 +59,7 @@ function MainPlan() {
           </p>
         </div>
 
-        <Accordian />
+        {/* <Accordian /> */}
 
         <div className="container-fluid  mainPlans text-dark">
           {allplans.map((p, i) => (

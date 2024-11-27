@@ -1,4 +1,4 @@
-import adminModel from "../models/adminModel";
+// import adminModel from "../models/adminModel";
 
 // export default checkAdmin = async(req,res)=>{
 //     try {

@@ -1,26 +1,28 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import {
+
+const {
   userLogin,
   sendOtp,
   verifyOtp, 
   logout,
-  createOrder,verifyPayment ,
+  createOrder,
+  verifyPayment,
   verifyUser
-} from "../controllers/userController.js";
+} = require("../controllers/userController");
 
-import { userEnquery , getAllEnquery } from "../controllers/enqueryController.js";
-import { getAllPlans , addPlans } from "../controllers/planController.js";
+const { userEnquery, getAllEnquery } = require("../controllers/enqueryController");
+const { getAllPlans, addPlans } = require("../controllers/planController");
 
-import Auth from "../middleWare/auth.js";
+const Auth = require("../middleWare/auth");
 
-//Public routes
+// Public routes
 router.route("/login").get(userLogin);
 router.route("/sendotp").post(sendOtp);
 router.route("/verifyotp").post(verifyOtp);
 router.route("/logout").post(logout);
 
-// payment
+// Payment
 router.route("/createOrder").post(createOrder);
 router.route("/verifyPayment").post(verifyPayment);
 
@@ -28,15 +30,14 @@ router.route("/verifyPayment").post(verifyPayment);
 
 router.route('/authenticate').post(verifyUser, (req, res) => {
   res.status(201).send({ message: "User authenticated" });
-});      
+});
 
-//user enquery
+// User Enquiry
 router.route("/enquery").post(userEnquery);
 router.route("/allEnquery").get(getAllEnquery);
 
-//plans
-router.route("/planlist").get(getAllPlans)
-router.route("/addNewPlan").post(addPlans)
+// Plans
+router.route("/planlist").get(getAllPlans);
+router.route("/addNewPlan").post(addPlans);
 
-export default router;
- 
+module.exports = router;

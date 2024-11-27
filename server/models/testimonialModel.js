@@ -1,19 +1,22 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const testimonialSchema = new mongoose.Schema({
-    name:{
-        type: String,
-        required: true,
+const testimonialSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    pic:{
-        type: String,
+    pic: {
+      type: String,
     },
-    comment:{
-        type: String,
-        required: true,
-    }
-},
-{ timestamps: true })
+    comment: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const testimonialModel = mongoose.model("testimonial",testimonialSchema)
-export default testimonialModel;
+const testimonialModel = mongoose.model("testimonial", testimonialSchema);
+
+module.exports = testimonialModel;

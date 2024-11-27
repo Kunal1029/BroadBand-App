@@ -83,7 +83,7 @@ const FAQs = () => {
                 onClick={handleToggle}
               >
                 {" "}
-                {item.question}
+                {item.question } <i className="fa-solid fa-circle-plus"></i>
               </button>
               <div className="faq-accordion-answer">
                 <p> {item.answer}</p>

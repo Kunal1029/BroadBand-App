@@ -1,31 +1,34 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const planSchema = new mongoose.Schema({
-    planName:{
-        type: String,
-        required: true,
+const planSchema = new mongoose.Schema(
+  {
+    planName: {
+      type: String,
+      required: true,
     },
-    mbps:{
-        type: String,
+    mbps: {
+      type: String,
     },
-    Data:{
-        type: String,
-        default:"Unlimited data"
+    Data: {
+      type: String,
+      default: "Unlimited data",
     },
-    Validity:{
-        type: String,
-        default:"Monthly"
+    Validity: {
+      type: String,
+      default: "Monthly",
     },
-    ott:{
-        type:Boolean,
-        required: true
+    ott: {
+      type: Boolean,
+      required: true,
     },
-    price:{
-        type: Number,
-        required: true
-    }
-},
-{ timestamps: true })
+    price: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const planModel = mongoose.model("plan",planSchema)
-export default planModel;
+const planModel = mongoose.model("plan", planSchema);
+
+module.exports = planModel;

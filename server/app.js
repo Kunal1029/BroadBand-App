@@ -1,14 +1,13 @@
-import dotenv from 'dotenv'
-dotenv.config()
-import express from 'express'
-import cors from 'cors';
-import router from './routes/userRoutes.js';
-import { connectDB } from './db/connectDB.js';
-import bodyParser from "body-parser";
+const dotenv = require('dotenv');
+dotenv.config();
+const express = require('express');
+const cors = require('cors');
+const router = require('./routes/userRoutes'); 
+const  connectDB  = require('./db/connectDB.js'); 
 
 const app = express()
-const port = process.env.PORT
-
+const port = process.env.PORT || 3000
+ 
 
 //cors policy
 app.use(cors())
@@ -19,6 +18,10 @@ app.use(express.json())
 // Load Routes
 app.use('/api/user', router)
 app.disable("x-powered-by");
+
+app.get('/',(req,res)=>{
+    res.send("Heelo")
+})
 
 
 app.listen(port,()=>{

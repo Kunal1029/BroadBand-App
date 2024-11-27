@@ -15,24 +15,22 @@ function MainAbout() {
                 We are top internet <br />
                 service company
               </h1>
-              <p className="py-2 ">
+              <p className="py-2 mt-4 mb-4">
                 1 Zeta is your trusted partner in
-                <b className="text-primary">high-speed internet</b>, dedicated
+                <b className="text-primary"> high-speed internet</b>, dedicated
                 to delivering
-                <b className="text-primary">
-                  affordable, reliable connectivity
-                </b>
+                <b className="text-primary"> affordable, reliable connectivity </b> 
                 for homes and businesses alike.
               </p>
-              <p className="py-2 ">
+              <p className="py-2 mt-4 mb-4">
                 We believe in making quality internet accessible to all, with
                 customer service that&#39;s always ready to help. Experience
                 internet without limits – with
-                <b className="text-primary">1 Zeta </b>, you&#39;re connected to
+                <b className="text-primary"> 1 Zeta </b>, you&#39;re connected to
                 more.
               </p>
 
-              <p>
+              <p className="mt-4 mb-4">
                 At 1 Zeta, we’re more than just an internet service provider;
                 we’re your partner in seamless digital connectivity. Built on
                 the belief that fast, reliable internet should be accessible to
@@ -66,10 +64,12 @@ function MainAbout() {
 
          <Wave/>
         </div>
+
         <div className="mt-5">
           <h2 className="mt-5 mb-4 text-center">About Our Goals</h2>
           <Goals />
         </div>
+        
       </section>
     </div>
   );
