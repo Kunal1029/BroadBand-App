@@ -11,11 +11,10 @@ function MainPlan() {
   const dispatch = useDispatch();
   const [withs, setwiths] = useState(false);
   const { allplans, isLoading, error } = useSelector((state) => state.user);
-  const [withOTT, setWithOtt] = useState(allplans)
-  
-  
-  function oots(){
-    console.log(withOTT)
+  const [withOTT, setWithOtt] = useState(allplans);
+
+  function oots() {
+    console.log(withOTT);
   }
 
   useEffect(() => {
@@ -39,8 +38,6 @@ function MainPlan() {
     await handlePayment(PlanPrice, itemId); // Calls Razorpay helper
   };
 
-  
-
   return (
     <section
       className="plans d-flex align-items-center py-5 myplans "
@@ -61,11 +58,11 @@ function MainPlan() {
 
         {/* <Accordian /> */}
 
-        <div className="container-fluid  mainPlans text-dark">
+        <div className="container-fluid  mainPlans text-dark ">
           {allplans.map((p, i) => (
             <div
               key={i}
-              className="col-lg-3 col-md-4 col-6 border bg-white p-2 div1 mb-5"
+              className=" border bg-white p-2 div1 mb-5"
             >
               <div className=" ms-4">
                 <span className="badge bg-primary border border-rounded mt-4 mb-4 p-2">
@@ -75,7 +72,7 @@ function MainPlan() {
                   <h2>{p.price}</h2>
                   <span className="gray">+GST</span>
                 </div>
-                {p.ott ? "": <div className="nonOtpSpace"></div>}
+                {p.ott ? "" : <div className="nonOtpSpace"></div>}
                 {p.ott && (
                   <div className="SMediaPlan">
                     <div className="SMtagsPlan">
@@ -100,20 +97,59 @@ function MainPlan() {
                   </div>
                 </div>
 
-                <div  className={`mt-4 mb-4 mainPlanBtn`}>
+                <div className={`mt-4 mb-4 mainPlanBtn`}>
                   <button
                     className="btn text-dark"
                     onClick={() => handlePay(p.price, i)}
                   >
                     Buy Now
                   </button>
-                  <button className=" btn text-dark">View Details</button>
+                  <button className=" btn text-dark" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">View Details <i className="fa-solid fa-circle-info"></i></button>
+                  <div
+                    className="modal fade"
+                    id="staticBackdrop"
+                    tabIndex="-1"
+                    aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h1
+                            className="modal-title fs-5"
+                            id="staticBackdropLabel"
+                          >
+                            Modal title
+                          </h1>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">...</div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="button" className="btn btn-primary">
+                            Understood
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

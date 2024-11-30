@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./Plan.css";
 import { Link } from "react-router-dom";
-import { fetchAllPlans , payment  } from "../OtherComponents/userSlice.jsx";
+import { fetchAllPlans, payment } from "../OtherComponents/userSlice.jsx";
 import { handlePayment } from "../helper/helper.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
 
 // Define responsive settings for the carousel
 const responsive = {
@@ -27,7 +27,7 @@ const responsive = {
 function Plan() {
   const dispatch = useDispatch();
   const { allplans, isLoading, error } = useSelector((state) => state.user);
-  
+
   useEffect(() => {
     dispatch(fetchAllPlans());
   }, [dispatch]);
@@ -45,9 +45,53 @@ function Plan() {
   }
   // console.log("Lol DataCheckup " , allplans)
 
-  const handlePay = async (PlanPrice, itemId , mobile) => {
-    await handlePayment(PlanPrice, itemId , mobile); // Calls Razorpay helper
+  const handlePay = async (PlanPrice, itemId, mobile) => {
+    await handlePayment(PlanPrice, itemId, mobile); // Calls Razorpay helper
   };
+
+  const CustomLeftArrow = ({ onClick }) => {
+    return (
+      <button
+        className="custom-left-arrow"
+        onClick={onClick}
+        style={{
+          position: "absolute",
+          left: "10px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          backgroundColor: "transparent",
+          border: "none",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+      >
+      <i className="fa-solid fa-angle-left"></i>
+
+      </button>
+    );
+  };
+  
+  const CustomRightArrow = ({ onClick }) => {
+    return (
+      <button
+        className="custom-right-arrow"
+        onClick={onClick}
+        style={{
+          position: "absolute",
+          right: "10px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          backgroundColor: "transparent",
+          border: "none",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+      >
+        <i className="fa-solid fa-angle-right"></i>
+      </button>
+    );
+  };
+  
 
   return (
     <section
@@ -79,18 +123,20 @@ function Plan() {
           keyBoardControl={true}
           customTransition="transform 1000ms ease-in-out"
           transitionDuration={500}
-          containerClass="carousel-container"
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          itemClass="carousel-item-padding-40-px"
+          containerclassName="carousel-container"
+          // removeArrowOnDeviceType={["tablet"]}
+          itemclassName="carousel-item-padding-40-px"
           arrows
+          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow />}
         >
           {/* Dynamically render plan cards */}
           {allplans.map((p, index) => (
             <div
               key={index}
-              className="card text-dark px-4 mt-4 ms-2 me-2 mb-4 bg-white"
+              className="card text-dark px-4 mt-4 ms-2 me-2 mb-4 bg-white homePlans"
             >
-               <div className=" ms-4">
+              <div className=" ms-4">
                 <span className="badge bg-primary border border-rounded mt-4 mb-4 p-2">
                   {p.ott ? "Zeta Popular Plan" : "Zeta Value Pack"}
                 </span>
@@ -98,7 +144,7 @@ function Plan() {
                   <h2>{p.price}</h2>
                   <span className="gray">+GST</span>
                 </div>
-                {p.ott ? "": <div className="nonOtpSpace"></div>}
+                {p.ott ? "" : <div className="nonOtpSpace"></div>}
                 {p.ott && (
                   <div className="SMediaPlan">
                     <div className="SMtagsPlan">
@@ -111,31 +157,46 @@ function Plan() {
                   </div>
                 )}
 
-                <div className={`mainPlanLine  mt-3 mb-4`}></div>
+                <div className={`mainPlanLine  mt-3 mb-4 me-auto`}></div>
 
                 <div className="valData">
                   <div className="validity">
                     <p className="gray"> Validity</p>{" "}
-                    {p.Validity === "Monthly" ? "30 Days" : ""}
+                    <span>{p.Validity === "Monthly" ? "30 Days" : ""}</span>
                   </div>
+
                   <div className="data">
-                    <p className="gray">Data</p> {p.Data} @{p.mbps} Mbps
+                    <p className="gray">Data</p>{" "}
+                    <span>
+                      {" "}
+                      {p.Data} @{p.mbps} Mbps
+                    </span>
                   </div>
                 </div>
 
-                <div  className={`mt-4 mb-4 mainPlanBtn`}>
+                <div className={`mt-4 mb-4 mainPlanBtn temp767`}>
                   <button
                     className="btn text-dark"
                     onClick={() => handlePay(p.price, index)}
                   >
                     Buy Now
                   </button>
-                  <button className=" btn text-dark">View Details</button>
+
+                  <button
+                    className=" btn text-dark"
+                    
+                  >
+                    View Details <i className="fa-solid fa-circle-info"></i>
+                  </button>
+              
                 </div>
+
+
               </div>
             </div>
           ))}
         </Carousel>
+
         {/* End of carousel */}
 
         <div className="my-3 text-center mt-5 mb-5">

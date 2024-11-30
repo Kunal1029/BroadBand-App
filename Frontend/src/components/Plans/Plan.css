@@ -7,56 +7,170 @@
   background: linear-gradient(to bottom, #0078d7, #02255d);
   /* height: 100vh; Ensures the background image and color take up full viewport height */
 }
-.mainPlans{
+.mainPlans {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
-.mainPlans .div1{
-width: 27vw;
-/* height: 350px; */
-border-radius: 15px;
+.mainPlans .div1 {
+  width: 27vw;
+  /* height: 350px; */
+  border-radius: 15px;
 }
-.mainPlanLine{
-  border: 2px solid gainsboro;
-  width: 24vw;
+.mainPlanLine {
+  border: 2px solid rgb(220, 220, 220);
+  width: 95%;
   height: 1px;
 }
-.gray{
+.gray {
   color: rgb(93, 91, 91);
 }
-.valData{
+.valData {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.mainPlanBtn{
+.mainPlanBtn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
 }
-.SMediaPlan{
+.SMediaPlan {
   height: 60px;
   display: flex;
   align-items: center;
 }
-.SMtagsPlan{
+.SMtagsPlan {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-.SMtagsPlan div img{
+.SMtagsPlan div img {
   width: 40px;
   height: 40px;
   border-radius: 100%;
 }
-.nonOtpSpace{
+.nonOtpSpace {
   height: 60px;
 }
-.smGap{
+.smGap {
   display: flex;
   gap: 5px;
+}
+
+
+/* arrow */
+
+.custom-left-arrow,
+.custom-right-arrow {
+  font-size: 20px;
+  color: #333;
+}
+
+.custom-left-arrow:hover,
+.custom-right-arrow:hover {
+  color: #007bff;
+}
+
+
+@media (max-width: 1200px) {
+  .valData .data p ,span {
+    font-size: 0.8rem;
+  }
+  .valData .validity p ,span {
+    font-size: 0.8rem;
+  }
+
+  .mainPlanBtn .btn{
+    /* font-size: 0.7rem; */
+    padding: 5px;
+  }
+
+  .mainPlans {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .mainPlans .div1 {
+    width: 450px;
+    /* height: 350px; */
+    border-radius: 15px;
+  }
+}
+@media (max-width:991px) {
+  .mainPlans .div1 {
+    width: 330px;
+    /* height: 350px; */
+    border-radius: 10px;
+  }
+}
+
+@media (max-width:767px) {
+  .valData .data p ,span {
+    font-size: 0.7rem;
+  }
+  .valData .validity p ,span {
+    font-size: 0.7rem;
+  }
+  .mainPlanBtn .btn{
+    font-size: 0.8rem;
+  }
+  .valData{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .mainPlans .div1 {
+    width: 490px;
+    /* height: 350px; */
+    border-radius: 10px;
+  }
+  .mainPlanBtn .btn{
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .temp767 .btn{
+    font-size: 0.7rem;
+    padding: 7px 3px;
+  }
+}
+
+@media (max-width:570px) {
+  .valData .data p ,span {
+    font-size: 1rem;
+  }
+  .valData .validity p ,span {
+    font-size: 1rem;
+  }
+  .mainPlanBtn .btn{
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .valData{
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    gap: 10px;
+  }
+}
+@media (max-width:400px) {
+  .valData{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+
+@media (max-width:350px) {
+  .mainPlanBtn .btn{
+    font-size: 0.8rem;
+    padding: 4px;
+  }
 }
