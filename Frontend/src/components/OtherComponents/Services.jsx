@@ -1,6 +1,40 @@
 // import SocialMedia from "./Animation/SocialMedia";
+import "../../App.css"
 
 function Services() {
+  const cardData = [
+    {
+      iTag: "fa-house fa-solid fa-lg text-white",
+      h4Tag: "HOME BROADBAND",
+      pTag: "Experience ultra-fast internet with our fiber-optic broadband plans, designed for seamless streaming, gaming, and working from home.",
+    },
+    {
+      iTag: "fa-solid fa-wifi text-white",
+      h4Tag: "HOME WIFI",
+      pTag: "Get consistent and reliable Wi-Fi coverage across your home or office with our top-tier routers and Wi-Fi equipment, ensuring smooth connectivity in every corner.",
+    },
+    {
+      iTag: "fa-solid fa-phone text-white",
+      h4Tag: "Computer Networking Solutions",
+      pTag: "Optimize your network infrastructure with our professional computer networking services, including setup, maintenance, and troubleshooting of local area networks (LANs), ensuring seamless connectivity across all devices.",
+    },
+    {
+      iTag: "fa-solid fa-mobile-screen-button text-white",
+      h4Tag: "BUSINESS SOLUTIONS",
+      pTag: "Tailored broadband services for businesses, offering dedicated bandwidth, enhanced security, and superior reliability for your professional needs.",
+    },
+    {
+      iTag: "fa-solid fa-shield-halved text-white",
+      h4Tag: "SMART HOME",
+      pTag: "Enhance your smart home with seamless connectivity for all your devices, from smart thermostats to security cameras, ensuring everything works flawlessly with high-speed internet.",
+    },
+    {
+      iTag: "fa-solid fa-tv text-white",
+      h4Tag: "TV SETUP BOX",
+      pTag: "Enjoy seamless television streaming with our integrated TV setup box, providing access to your favourite channels, on-demand content, and more, all with a high-quality viewing experience.",
+    },
+  ];
+
   return (
     <div>
       {/* <!-- Services --> */}
@@ -19,93 +53,30 @@ function Services() {
               to your lifestyle, so you can focus on what matters most.
             </p>
           </div>
+
           <div className="row gy-4 py-2 mt-3" data-aos="zoom-in">
-            <div className="col-lg-4 ">
-              <div className="card border-0 border-0 bg-transparent ">
-                {/* <div className="d-flex gap-3"> */}
+            {cardData.map((k, i) => (
+              <div className="col-lg-4 " key={i}>
+                <div
+                  className="card bg-transparent tempService"
                   
-                <div className="ripplebutton">
-                  <i className=" fa-house fa-solid fa-lg text-white"></i>
-                </div>
+                >
+                  <div className="d-flex  gap-3 mt-4 mb-4 align-item-center">
 
-                <h4 className="py-2">HOME BROADBAND</h4>
-                {/* </div> */}
+                    <div className="ripplebutton">
+                      <i className={`${k.iTag}`}></i>
+                    </div>
 
-                <p className="para-light">
-                  Experience ultra-fast internet with our fiber-optic broadband
-                  plans, designed for seamless streaming, gaming, and working
-                  from home.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card border-0 bg-transparent">
-                <div className="ripplebutton">
-                  <i className="fa-solid fa-wifi text-white"></i>
+                    <h5 className="ms-2">{k.h4Tag}</h5>
+
+                  </div>
+
+                  <p className="para-light">{k.pTag}</p>
                 </div>
-                <h4 className="py-2">HOME WIFI</h4>
-                <p className="para-light">
-                  Get consistent and reliable Wi-Fi coverage across your home or
-                  office with our top-tier routers and Wi-Fi equipment, ensuring
-                  smooth connectivity in every corner.
-                </p>
               </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card border-0 bg-transparent">
-                <div className="ripplebutton">
-                  <i className="fa-solid fa-phone text-white "></i>
-                </div>
-                <h4 className="py-2">Computer Networking Solutions</h4>
-                <p className="para-light">
-                  Optimize your network infrastructure with our professional
-                  computer networking services, including setup, maintenance,
-                  and troubleshooting of local area networks (LANs), ensuring
-                  seamless connectivity across all devices.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card border-0 bg-transparent">
-                <div className="ripplebutton">
-                  <i className="fa-solid fa-mobile-screen-button text-white"></i>
-                </div>
-                <h4 className="py-2">BUSINESS SOLUTIONS</h4>
-                <p className="para-light">
-                  Tailored broadband services for businesses, offering dedicated
-                  bandwidth, enhanced security, and superior reliability for
-                  your professional needs.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card border-0 bg-transparent">
-                <div className="ripplebutton">
-                  <i className="fa-solid fa-shield-halved text-white"></i>{" "}
-                </div>
-                <h4 className="py-2">SMART HOME</h4>
-                <p className="para-light">
-                  Enhance your smart home with seamless connectivity for all
-                  your devices, from smart thermostats to security cameras,
-                  ensuring everything works flawlessly with high-speed internet.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card border-0 bg-transparent">
-                <div className="ripplebutton">
-                  <i className="fa-solid fa-tv text-white"></i>{" "}
-                </div>
-                <h4 className="py-2">TV SETUP BOX</h4>
-                <p className="para-light">
-                  Enjoy seamless television streaming with our integrated TV
-                  setup box, providing access to your favourite channels,
-                  on-demand content, and more, all with a high-quality viewing
-                  experience.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
+
           {/* <!-- end of row --> */}
         </div>
         {/* <!-- end of container --> */}

@@ -1,5 +1,5 @@
 .mycircles {
-  height: 20em;
+  height: 20em; 
   position: relative;
   width: 20em;
 
@@ -218,6 +218,7 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  margin-top: 150px;
 }
 .SMtag-list {
   width: 50%;
@@ -232,13 +233,13 @@
 .SMloop-slider {
   .SMinner {
     display: flex;
-    width: fit-content;
-    margin-bottom: 20px;
-    animation-name: SMloop;
+    /* width: fit-content; */
+     margin-bottom: 20px;
+    /*animation-name: SMloop;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-duration: var(--duration);
-    animation-direction: var(--direction);
+    animation-direction: var(--direction); */
   }
   overflow: hidden;
   width: 100%;
@@ -385,3 +386,60 @@
 }
 
 /* SocialMedia end */
+
+
+
+.logos {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.logos-slide {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+.logos-slideRev {
+  display: flex;
+  animation: scroll 20s linear infinite reverse;
+}
+
+.logos-slide img {
+  width: 150px; /* Adjust logo size */
+  margin: 0 10px;
+}
+
+.logos:before,
+  .logos:after {
+    position: absolute;
+    top: 10px;
+    width: 80px;
+    height: 60%;
+    content: "";
+    z-index: 2;
+  }
+  
+  .logos:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.442));
+  }
+  
+  .logos:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.423));
+  }
+  
+  .logos:hover .logos-slide {
+    animation-play-state: paused;
+  }
+
+/* Infinite scrolling animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

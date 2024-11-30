@@ -35,7 +35,20 @@
   position: absolute;
   top: 140px;
 }
-
+.tempService{
+  height: 280px;
+}
+.tempService h5{
+  font-size: 1.2rem;
+}
+@media (max-width:1200px) {
+  .tempService{
+    height: 350px;
+  }
+  .tempService h5{
+    font-size: 1.1rem;
+  }
+}
 @media (max-width: 992px) {
   .wifiabout {
     display: flex;
@@ -52,10 +65,36 @@
     max-height: 550px;
     opacity: 1;
   }
+  .tempService{
+    height: 235px;
+  }
 }
 @media (max-width:770px) {
   .abs{
     position: absolute;
     top: 280px;
+  }
+}
+
+@media (max-width:450px) {
+  .tempService{
+    height: 280px;
+  }
+  .tempService h5{
+    font-size: 1.1rem;
+  }
+  .tempService p{
+    font-size: 0.9rem;
+  }
+}
+@media (max-width:350px) {
+  .tempService{
+    height: 270px;
+  }
+  .tempService h5{
+    font-size: 1rem;
+  }
+  .tempService p{
+    font-size: 0.8rem;
   }
 }

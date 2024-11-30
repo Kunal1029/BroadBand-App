@@ -1,7 +1,7 @@
 import "./Animation.css";
 import "../../App.css";
 
-function SocialMedia() {
+function SocialMedia() { 
   const tags1 = [
     { label: "Disney+Hotstar", icon: "./assets/images/sm/hotstar.jpeg" },
     { label: "Discovery+", icon: "./assets/images/sm/discovery.jpeg" },
@@ -43,11 +43,13 @@ function SocialMedia() {
     { label: "Eros", icon: "./assets/images/sm/eros.jpeg" },
     
   ];
-
+  const ks = [...tags1,...tags1]
+  const ks1 = [...tags2,...tags2]
+  const ks2 = [...tags3,...tags3]
   return (
-    <div className="container ">
-      <div className="SMapp ">
-        <div className="smrow mt-5 mb-5 ">
+    <section className="container ">
+      <div className="SMapp">
+        <div className="smrow  mb-5 ">
           <div className="SMHeader col-lg-5 mt-5 mb-5">
             <h1>Stream your favorites on demand!</h1>
             <p className="mt-3">
@@ -57,12 +59,12 @@ function SocialMedia() {
           </div>
 
           <div className="SMtag-list mb-4 col-lg-6  ">
+
             <div
-              className="SMloop-slider m-auto "
-              style={{ "--duration": "10951ms", "--direction": "normal" }}
+              className="SMloop-slider m-auto logos"
             >
-              <div className="SMinner">
-                {tags1.map((tag, index) => (
+              <div className="SMinner logos-slide">
+                {ks.map((tag, index) => (
                   <div key={index} className="SMtag">
                     {tag.icon ? (
                       <span className="">
@@ -76,12 +78,12 @@ function SocialMedia() {
                 ))}
               </div>
             </div>
+
             <div
-              className="SMloop-slider m-auto"
-              style={{ "--duration": "15260ms", "--direction": "reverse" }}
+              className="SMloop-slider m-auto logos"
             >
-              <div className="SMinner">
-                {tags2.map((tag, index) => (
+              <div className="SMinner logos-slide logos-slideRev">
+                {ks1.map((tag, index) => (
                   <div key={index} className="SMtag">
                     {tag.icon ? (
                       <span className="">
@@ -95,12 +97,12 @@ function SocialMedia() {
                 ))}
               </div>
             </div>
+
             <div
-              className="SMloop-slider m-auto"
-              style={{ "--duration": "10449ms", "--direction": "normal" }}
+              className="SMloop-slider m-auto logos"
             >
-              <div className="SMinner">
-                {tags3.map((tag, index) => (
+              <div className="SMinner logos-slide">
+                {ks2.map((tag, index) => (
                   <div key={index} className="SMtag">
                     {tag.icon ? (
                       <span className="">
@@ -118,7 +120,7 @@ function SocialMedia() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
