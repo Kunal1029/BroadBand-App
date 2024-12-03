@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { fetchAllPlans, payment } from "../OtherComponents/userSlice.jsx";
 import { handlePayment } from "../helper/helper.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
 // Define responsive settings for the carousel
 const responsive = {
@@ -27,6 +29,11 @@ const responsive = {
 function Plan() {
   const dispatch = useDispatch();
   const { allplans, isLoading, error } = useSelector((state) => state.user);
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
 
   useEffect(() => {
     dispatch(fetchAllPlans());
@@ -65,12 +72,11 @@ function Plan() {
           zIndex: 1000,
         }}
       >
-      <i className="fa-solid fa-angle-left"></i>
-
+        <i className="fa-solid fa-angle-left"></i>
       </button>
     );
   };
-  
+
   const CustomRightArrow = ({ onClick }) => {
     return (
       <button
@@ -91,11 +97,10 @@ function Plan() {
       </button>
     );
   };
-  
 
   return (
     <section
-      className="plans d-flex align-items-center py-5 myplans "
+      className="plans d-flex align-items-center py-5 myplans"
       style={{ height: "100%" }}
       id="plans"
     >
@@ -141,7 +146,9 @@ function Plan() {
                   {p.ott ? "Zeta Popular Plan" : "Zeta Value Pack"}
                 </span>
                 <div className="d-flex gap-2">
-                  <h2>{p.price}</h2>
+                  
+                  <h2>₹{p.price}</h2>
+                  
                   <span className="gray">+GST</span>
                 </div>
                 {p.ott ? "" : <div className="nonOtpSpace"></div>}
@@ -177,22 +184,24 @@ function Plan() {
                 <div className={`mt-4 mb-4 mainPlanBtn temp767`}>
                   <button
                     className="btn text-dark"
-                    onClick={() => handlePay(p.price, index)}
+                    // onClick={() => handlePay(p.price, index)}
+                    onClick={onOpenModal}
                   >
                     Buy Now
                   </button>
 
-                  <button
-                    className=" btn text-dark"
-                    
-                  >
+                  {/* buy modal  */}
+                  <Modal open={open} onClose={onCloseModal} center>
+                    <h2>Simple centered modal</h2>
+                  </Modal>
+                  {/* buy modal end */}
+
+                  <button className=" btn text-dark">
                     View Details <i className="fa-solid fa-circle-info"></i>
                   </button>
-              
                 </div>
-
-
               </div>
+
             </div>
           ))}
         </Carousel>

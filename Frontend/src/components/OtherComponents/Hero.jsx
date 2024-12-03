@@ -50,7 +50,7 @@ function Hero() {
       {/* <div className="netHome">
         <Network isWifi={false} />
       </div> */}
-
+  
       {/* <!-- Information --> */}
       <section className="information">
         <div className="container-fluid">

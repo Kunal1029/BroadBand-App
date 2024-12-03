@@ -13,8 +13,9 @@ import Testimonial from "../OtherComponents/Testimonial";
 function Home() {
   return (
     <div>
-
       <Hero />
+
+     
 
       <Plan />
 
@@ -35,7 +36,6 @@ function Home() {
       <Contact />
 
       <MyLocation />
-
     </div>
   );
 }

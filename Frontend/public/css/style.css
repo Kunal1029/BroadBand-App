@@ -278,13 +278,13 @@ li {
   position: relative;
 }
 .home::before {
-  content: "";
+  /* content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-color: rgba(128, 128, 128, 0.288);/* Semi-transparent black overlay */
+  bottom: 0; */
+  /* background-color: rgba(128, 128, 128, 0.288);Semi-transparent black overlay */
   /* z-index: 1; Ensure overlay is on top */
 }
 
