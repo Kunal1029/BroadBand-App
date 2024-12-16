@@ -1,4 +1,25 @@
-.myplans {
+
+
+.dots li {
+  list-style:inside;
+  /* margin-bottom: 5px; Add space between list items (optional) */
+}
+/* .react-responsive-modal-container {
+  height: 100%;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  background-color: var(--primary);
+  background-color: wheat;
+} */
+.payModal{
+  border-radius: 10px !important;
+  width: 30vw;
+  height: 100%;
+}
+
+.myplans { 
   position: relative;
   /* background-image: url(../assets/images/6.png); */
   background-size: cover;
@@ -38,6 +59,7 @@
   justify-content: center;
   gap: 1rem;
 }
+
 .SMediaPlan {
   height: 60px;
   display: flex;
@@ -74,7 +96,12 @@
 .custom-right-arrow:hover {
   color: #007bff;
 }
-
+@media (max-width: 1400px) {
+  .mainPlanBtn .btn {
+    font-size: 1rem;
+    padding: 5px;
+  }
+}
 
 @media (max-width: 1200px) {
   .valData .data p ,span {

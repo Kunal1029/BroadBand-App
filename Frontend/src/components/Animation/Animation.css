@@ -1,5 +1,5 @@
 .mycircles {
-  height: 20em; 
+  height: 20em;
   position: relative;
   width: 20em;
 
@@ -99,7 +99,7 @@
 }
 
 :root {
-  --c1:var(--primary);
+  --c1: var(--primary);
   --c2: var(--secondary-color);
   --c3: var(--secondary-color);
   --c4: var(--secondary-color);
@@ -172,7 +172,7 @@
   display: grid;
   place-items: center;
   transform: scale(0.3);
-  margin-right:65px;
+  margin-right: 65px;
   /* width: auto;
   height: auto; */
 }
@@ -234,7 +234,7 @@
   .SMinner {
     display: flex;
     /* width: fit-content; */
-     margin-bottom: 20px;
+    margin-bottom: 20px;
     /*animation-name: SMloop;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -382,12 +382,10 @@
   .mycircles {
     height: 18em;
     width: 18em;
-  }  
+  }
 }
 
 /* SocialMedia end */
-
-
 
 .logos {
   display: flex;
@@ -411,16 +409,16 @@
 }
 
 .logos:before,
-  .logos:after {
-    position: absolute;
-    top: 10px;
-    width: 80px;
-    height: 60%;
-    content: "";
-    z-index: 2;
-  }
-  
-  /* .logos:before {
+.logos:after {
+  position: absolute;
+  top: 10px;
+  width: 80px;
+  height: 60%;
+  content: "";
+  z-index: 2;
+}
+
+/* .logos:before {
     left: 0;
     background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.442));
   }
@@ -431,10 +429,9 @@
   }
    */
 
-   
-  .logos:hover .logos-slide {
-    animation-play-state: paused;
-  }
+.logos:hover .logos-slide {
+  animation-play-state: paused;
+}
 
 /* Infinite scrolling animation */
 @keyframes scroll {

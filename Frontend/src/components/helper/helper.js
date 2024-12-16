@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://apizeta.1zeta.com"; // Update with your API base URL
+axios.defaults.baseURL = "http://localhost:3000"; // Update with your API base URL
 axios.defaults.timeout = 10000; // Set a timeout of 10 seconds for requests
 
 // Send OTP
@@ -72,7 +72,7 @@ export async function getPlans() {
   }
 }
 
- 
+
 export async function addPlan(data) {
   try {
     const response = await axios.post('/api/user/addNewPlan', data);
@@ -95,7 +95,7 @@ const loadRazorpayScript = () => {
   });
 };
 
-export async function handlePayment( PlanPrice, itemId , mobile ) {
+export async function handlePayment(PlanPrice, itemId, mobile, email, name) {
 
   try {
     const scriptLoaded = await loadRazorpayScript();
@@ -111,6 +111,9 @@ export async function handlePayment( PlanPrice, itemId , mobile ) {
     const orderData = {
       itemId: itemId,
       amount: PlanPrice, //Price in paise
+      name: name,
+      email: email,
+      mobile: mobile,
     };
 
     // Create order on the backend
@@ -123,37 +126,40 @@ export async function handlePayment( PlanPrice, itemId , mobile ) {
       amount: data.order.amount, // Amount in paise
       currency: data.order.currency,
       name: "1Zeta",
-      description: "Zeta Payment test",
+      description: "Good Plan Customize plan description in jsx",
       order_id: data.order.id, // Order ID returned by the backend
 
       // Payment success handler
       handler: async function (response) {
         // console.log(response, "Payment response");
 
-        const paymentData = {
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-        };
+        try {
+          const paymentData = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
 
-        // Verify payment with the backend
-        const result = await axios.post("/api/user/verifyPayment",
-          paymentData
-        );
+          // Verify payment with the backend
+          const verificationResult = await axios.post("/api/user/verifyPayment", paymentData);
 
-        if (result.data.success) {
-          alert("Payment successful!");
-        } else {
-          alert("Payment verification failed.");
+          if (verificationResult.data.success) {
+            alert("Payment successful!");
+          } else {
+            alert("Payment verification failed.");
+          }
+        } catch (err) {
+          console.error("Payment verification error:", err.message);
+          alert("Unable to verify payment. Please contact support.");
         }
 
-        
+
       },
 
       // Prefill customer information
       prefill: {
-        name: "Your Customer Name",
-        email: "zetaTry@gmail.com",
+        name: name,
+        email: email,
         contact: mobile,
       },
 

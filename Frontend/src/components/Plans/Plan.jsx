@@ -35,6 +35,30 @@ function Plan() {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
+  
+
+  const ValidityPeriod = (validityMonths) => {
+    const startDate = new Date();
+    const endDate = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth() + validityMonths,
+      startDate.getDate()
+    );
+
+    // Formatting dates to "dd MMM yyyy"
+    const formatOptions = { day: "2-digit", month: "short", year: "numeric" };
+    const formattedStartDate = new Intl.DateTimeFormat(
+      "en-GB",
+      formatOptions
+    ).format(startDate);
+    const formattedEndDate = new Intl.DateTimeFormat(
+      "en-GB",
+      formatOptions
+    ).format(endDate);
+
+    return `${formattedStartDate} to ${formattedEndDate}`;
+  };
+
   useEffect(() => {
     dispatch(fetchAllPlans());
   }, [dispatch]);
@@ -52,8 +76,8 @@ function Plan() {
   }
   // console.log("Lol DataCheckup " , allplans)
 
-  const handlePay = async (PlanPrice, itemId, mobile) => {
-    await handlePayment(PlanPrice, itemId, mobile); // Calls Razorpay helper
+  const handlePay = async (PlanPrice, itemId, mobile ,  name, email ) => {
+    await handlePayment(PlanPrice, itemId, mobile , email , name); // Calls Razorpay helper
   };
 
   const CustomLeftArrow = ({ onClick }) => {
@@ -146,9 +170,8 @@ function Plan() {
                   {p.ott ? "Zeta Popular Plan" : "Zeta Value Pack"}
                 </span>
                 <div className="d-flex gap-2">
-                  
                   <h2>₹{p.price}</h2>
-                  
+
                   <span className="gray">+GST</span>
                 </div>
                 {p.ott ? "" : <div className="nonOtpSpace"></div>}
@@ -181,7 +204,7 @@ function Plan() {
                   </div>
                 </div>
 
-                <div className={`mt-4 mb-4 mainPlanBtn temp767`}>
+                <div className={`mt-4 mb-4 mainPlanBtn temp767 `}>
                   <button
                     className="btn text-dark"
                     // onClick={() => handlePay(p.price, index)}
@@ -191,17 +214,108 @@ function Plan() {
                   </button>
 
                   {/* buy modal  */}
-                  <Modal open={open} onClose={onCloseModal} center>
-                    <h2>Simple centered modal</h2>
+                  <Modal
+                    open={open}
+                    onClose={onCloseModal}
+                    center
+                    styles={{
+                      overlay: { background: "rgba(194, 196, 209, 0.05)" },
+                      modal: {
+                        borderRadius: "10px",
+                        padding: "20px",
+                        marginTop: "70px",
+                      },
+                    }}
+                  >
+                    <form
+                      className="payModal"
+                      onSubmit={(e) => {
+                        e.preventDefault(); // Prevent default form submission behavior
+                        handlePay(p.price, index , 6261549410 , "kunal" , "kunalshivhare2001@gmail.com"); // Call your payment logic
+                      }}
+                    >
+                      <h5 className="text-center mt-3 mb-4">
+                        Please Check below details
+                      </h5>
+                      <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                          Name *
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          aria-describedby="nameHelp"
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                          Email address
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="email"
+                          aria-describedby="emailHelp"
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="mobile" className="form-label">
+                          Phone Number *
+                        </label>
+                        <input
+                          type="Number"
+                          className="form-control"
+                          id="mobile"
+                        />
+                      </div>
+
+                      <div className="mb-4 mt-4">
+                        <h5>Plan Details</h5>
+
+                        <ul className="dots">
+                          <li>
+                            Validity : {p.Validity} ({ValidityPeriod(1)})
+                          </li>
+                          <li>
+                            {p.Data} @{p.mbps} Mbps
+                          </li>
+                          <li>
+                            <>{p.ott ? "9+ OTT Included" : "Non OTT plan."}</>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="mb-3 form-check">
+                        <input
+                          type="checkbox"
+                          className="form-check-input"
+                          id="exampleCheck1"
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="exampleCheck1"
+                        >
+                          I agree
+                        </label>
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn text-dark"
+                      >
+                        Pay ₹{p.price}
+                      </button>
+                    </form>
+
+                    
                   </Modal>
                   {/* buy modal end */}
 
-                  <button className=" btn text-dark">
+                  <button className="btn text-dark">
                     View Details <i className="fa-solid fa-circle-info"></i>
                   </button>
                 </div>
               </div>
-
             </div>
           ))}
         </Carousel>

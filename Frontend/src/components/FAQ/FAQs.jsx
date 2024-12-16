@@ -1,7 +1,7 @@
 import "./FAQ.css";
 
 const FAQs = () => {
-  const handleToggle = (e) => {
+  const handleToggle = (e) => { 
     const question = e.target;
     const answer = e.target.nextSibling;
 
@@ -78,16 +78,18 @@ const FAQs = () => {
 
           {data.map((item) => (
             <div className="faq-accordion-question" key={item.id}>
+
               <button
                 className="faq-accordion-question-button"
                 onClick={handleToggle}
               >
-                {" "}
-                {item.question } <i className="fa-solid fa-circle-plus"></i>
+                {item.question} <i className="fa-solid fa-circle-plus ms-2"></i>
               </button>
+
               <div className="faq-accordion-answer">
                 <p> {item.answer}</p>
               </div>
+
             </div>
           ))}
         </div>
