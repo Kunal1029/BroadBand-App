@@ -14,7 +14,7 @@ const {
 
 const { userEnquery, getAllEnquery } = require("../controllers/enqueryController");
 const { getAllPlans, addPlans } = require("../controllers/planController");
-
+const {getAllUser , adminlogin }= require("../controllers/adminController.js")
 const Auth = require("../middleWare/auth");
 
 // Public routes
@@ -42,5 +42,9 @@ router.route("/allEnquery").get(getAllEnquery);
 // Plans
 router.route("/planlist").get(getAllPlans);
 router.route("/addNewPlan").post(addPlans);
+
+//Admin 
+router.route("/allUser").get(getAllUser);
+router.route("/admin").post(adminlogin)
 
 module.exports = router;

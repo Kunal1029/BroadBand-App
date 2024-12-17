@@ -231,7 +231,7 @@ function Plan() {
                       className="payModal"
                       onSubmit={(e) => {
                         e.preventDefault(); // Prevent default form submission behavior
-                        handlePay(p.price, index , 6261549410 , "kunal" , "kunalshivhare2001@gmail.com"); // Call your payment logic
+                        handlePay(p.price, index , 6322332332 , "kunal" , "kunalshivhare20101@gmail.com"); // Call your payment logic
                       }}
                     >
                       <h5 className="text-center mt-3 mb-4">

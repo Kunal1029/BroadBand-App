@@ -2,14 +2,15 @@ const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema(
   {
-    ownerName: {
+    adminName: {
       type: String,
     },
-    ownerEmail: {
+    adminEmail: {
       type: String,
+      required:true,
       default: "1zeta2024@gmail.com",
     },
-    ownerMobile: {
+    adminMobile: {
       type: String,
       required: true,
     },

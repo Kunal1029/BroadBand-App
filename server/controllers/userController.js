@@ -279,6 +279,7 @@ exports.verifyOtp = async (req, res) => {
   }
 };
 
+
 exports.logout = async (req, res) => {
   try {
     const { token } = req.body;
@@ -358,6 +359,7 @@ exports.verifyPayment = async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
     const secret = process.env.KEY_SECRET;
 
+    // Step 1: Verify Signature
     const hmac = crypto.createHmac("sha256", secret);
     hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
     const generatedSignature = hmac.digest("hex");
@@ -369,14 +371,15 @@ exports.verifyPayment = async (req, res) => {
       });
     }
 
-    // Fetch payment details from Razorpay
+    // Step 2: Fetch Payment Details from Razorpay
     const paymentDetails = await razorpayInstance.payments.fetch(razorpay_payment_id);
 
-    console.log("Payment Details hh ", paymentDetails);
-    console.log("notes Details kh ", paymentDetails.notes);
+    console.log("Payment Details:", paymentDetails);
+    console.log("Notes Details:", paymentDetails.notes);
 
-    const { mobile } = paymentDetails.notes;
+    const { mobile, name, email } = paymentDetails.notes;
 
+    // Step 3: Validate Mobile Number
     if (!mobile) {
       return res.status(400).json({
         success: false,
@@ -384,47 +387,54 @@ exports.verifyPayment = async (req, res) => {
       });
     }
 
-    console.log(mobile)
+    console.log("Mobile:", mobile);
 
-    const updatedUser = await userModel.findOneAndUpdate(
-      { mobile },
-      {
-        $set: { name: paymentDetails.notes.name, mobile },
-        $push: { planid: paymentDetails.id },
-        $push: { fullPaymentDetails: paymentDetails // Add multiple objects to the array
-        }
+    // Step 4: Build Update Fields (Conditionally Include Email)
+    const updateFields = {
+
+      otp: "111111",
+      $set: {
+        name: name || "No Name Provided", // Use default if name is missing
+        mobile,
       },
-      { new: true, upsert: true, setDefaultsOnInsert: true  } // upsert: true ensures user is created if they do not exist
+      $push: {
+        planid: paymentDetails.id,
+        fullPaymentDetails: paymentDetails,
+      },
+    };
+
+    // Conditionally include email if it exists
+    if (email) {
+      updateFields.$set.email = email;
+    }
+
+    // Step 5: Perform Upsert Operation (Insert or Update User)
+    const updatedUser = await userModel.findOneAndUpdate(
+      { mobile }, // Find user by mobile number
+      updateFields,
+      {
+        new: true,               // Return the updated document
+        upsert: true,            // Create new document if user doesn't exist
+        setDefaultsOnInsert: true, // Apply default values from the schema on insert
+      }
     );
 
     console.log("Updated User:", updatedUser);
-    console.log("Type payment " + paymentDetails)
 
-    // Check if user is null after the operation (should not be null with upsert)
-    if (!updatedUser) {
-      return res.status(404).json({
-        success: false,
-        message: `User with mobile ${mobile} could not be created.`,
-      });
-    }
-    // const invoiceDetails = await razorpayInstance.invoices.fetch(paymentDetails.invoice_id);
-    // console.log("INVOICE DETAILS "+invoiceDetails)
-
+    // Step 6: Final Response
     return res.status(200).json({
       success: true,
-      message: "Payment verified",
+      message: "Payment verified and user updated successfully.",
       paymentDetails,
+      updatedUser,
     });
-
-
   } catch (error) {
     console.error("Error verifying Razorpay payment:", error);
     res.status(500).json({
       success: false,
-      message: "Payment verification failed",
+      message: "Payment verification failed. Please try again.",
     });
   }
-
 };
 
 exports.createInvoice = async (req, res) => {
