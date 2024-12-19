@@ -34,15 +34,18 @@ const MailGenerator = new Mailgen({
   },
 });
 
-exports.registerMail = async ({ name, email, otp }) => {
+exports.registerMail = async ({ name, adminEmail, otp }) => {
   try {
     // Generate the email content using Mailgen
+    // console.log("email ",adminEmail , " name ", name , " otp " , otp)
+    const email = adminEmail;
+
     let emailTemplate = {
       body: {
-        name: name || "User",
+        name:"Dear " + name || "User",
         intro: otp
           ? `Your OTP is ${otp}. Please use this to complete your verification.`
-          : "Welcome to 1Zeta! We're very excited to have you on board.",
+          : name === "Admin" ? "Password Change Successfully" :"Welcome to 1Zeta! We're very excited to have you on board.",
         outro: "Need help, or have questions? Just reply to this email, we'd love to help.",
       },
     };
@@ -50,7 +53,7 @@ exports.registerMail = async ({ name, email, otp }) => {
     const emailBody = MailGenerator.generate(emailTemplate);
 
     // Message object
-    console.log("email ",email)
+    
     
     const message = {
       from: `"1zeta" <kunalshivhare200@gmail.com>`,

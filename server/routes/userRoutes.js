@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+// const { verifyAdminRole } = require("../helper/utils.js")
 
 const {
   userLogin,
   sendOtp,
-  verifyOtp, 
+  verifyOtp,
   logout,
   createOrder,
   verifyPayment,
@@ -12,9 +13,8 @@ const {
   sendOtpMail
 } = require("../controllers/userController");
 
-const { userEnquery, getAllEnquery } = require("../controllers/enqueryController");
-const { getAllPlans, addPlans } = require("../controllers/planController");
-const {getAllUser , adminlogin }= require("../controllers/adminController.js")
+const { userEnquery } = require("../controllers/enqueryController");
+const { getAllPlans } = require("../controllers/planController");
 const Auth = require("../middleWare/auth");
 
 // Public routes
@@ -37,14 +37,9 @@ router.route('/authenticate').post(verifyUser, (req, res) => {
 
 // User Enquiry
 router.route("/enquery").post(userEnquery);
-router.route("/allEnquery").get(getAllEnquery);
 
 // Plans
 router.route("/planlist").get(getAllPlans);
-router.route("/addNewPlan").post(addPlans);
 
-//Admin 
-router.route("/allUser").get(getAllUser);
-router.route("/admin").post(adminlogin)
 
 module.exports = router;

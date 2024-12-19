@@ -2,7 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
 const cors = require('cors');
-const router = require('./routes/userRoutes'); 
+const userRoutes = require('./routes/userRoutes.js'); 
+const adminRoutes = require('./routes/adminRoutes.js'); 
 const  connectDB  = require('./db/connectDB.js'); 
 
 const app = express()
@@ -16,7 +17,9 @@ app.use(cors())
 app.use(express.json())
 
 // Load Routes
-app.use('/api/user', router)
+app.use('/api/user', userRoutes)
+app.use('/admin', adminRoutes)
+
 app.disable("x-powered-by");
 
 app.get('/',(req,res)=>{
