@@ -1,6 +1,6 @@
 .goalsabt{
-    background-color: aliceblue;
-    color: var(--primary);
+    background-color: var(--secondary-color);
+    color: white;
     padding: 30px;
     border-radius: 20px;
     width: 50%;
@@ -10,4 +10,68 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+.yellowText{
+    color: var(--secondary-color);
+}
+.misvis{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.misvis .card{
+    background-color: var(--primary);
+    height: 100%;
+}
+.vmissions p{
+    text-align: justify;
+    font-size: 1.1rem;
+    
+}
+
+.mv1{
+    background-color: rgba(240, 248, 255, 0.113);
+}
+.CoreValues div p{
+    text-align: justify;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+@media (max-width:992px) {
+    .misvis{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .mv11{
+        background-color: rgba(254, 255, 240, 0.113);
+    }
+   
+}
+@media (max-width: 767px) {
+    .CoreValues div p{
+        font-size: 1rem;
+    }
+}
+@media (max-width:450px) {
+    .CoreValues div p{
+        text-align: justify;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+    .vmissions p{
+        text-align: justify;
+        font-size: 1rem;
+        
+    }
+}
+@media (max-width:350px) {
+    .CoreValues div p{
+        text-align: justify;
+        margin-bottom: 20px;
+        font-size: 0.7rem;
+    }
 }

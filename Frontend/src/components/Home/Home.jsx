@@ -15,8 +15,8 @@ function Home() {
     <div>
       <Hero />
 
+   
      
-
       <Plan />
 
       <About />

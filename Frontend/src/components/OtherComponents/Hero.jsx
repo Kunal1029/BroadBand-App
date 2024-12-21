@@ -7,7 +7,7 @@ function Hero() {
   return (
     <div>
       {/* <!-- Home --> */}
-      <section className="home py-5 d-flex align-items-center" id="header">
+      {/* <section className="home py-5 d-flex align-items-center" id="header">
         <div className="container text-light py-5" data-aos="fade-right">
           <h1 className="headline ">
             Best <span className="home_text">Broadband</span>
@@ -45,18 +45,101 @@ function Hero() {
             </div>
           </div>
         </div>
-        {/* <!-- end of container --> */}
+        
+      </section> */}
+
+      <section className="">
+        <div id="carouselExampleDark" className="carousel carousel-dark ">
+          <div className="carousel-inner">
+            <div className="carousel-item active pabso " >
+              
+              <video
+                autoPlay
+                muted
+                loop
+                src="./assets/vid4.mp4"
+                className="d-block w-100 lappiVid"
+                // style={{height:"700px"}}
+                
+              ></video>
+
+              <video 
+                autoPlay
+                muted
+                loop
+                src="./assets/mob.mp4"
+                className="w-100   mobVid"
+              ></video>
+
+              <div className="carousel-caption  preltv">
+                <section
+                  className="home"
+                  id="header"
+                >
+                  <div className=" text-light hmn "
+                    data-aos="fade-right"
+                  >
+                    <h1 className="headline text-start shadows1">Best 
+                       <a className="home_text shadowOrange"> Broadband</a>
+                      <br />
+                      Internet Plans For You
+                    </h1>
+                    <h5 className="para para-light text-white hp showNav shadows">
+                      Bringing affordable, high-quality internet to every
+                      doorstep. Whether for work, play, or study, 1 Zeta keeps
+                      you connected effortlessly.
+                    </h5>
+
+                    <h5 className="para para-light text-white hp showNav1 shadows">
+                      Bringing affordable, high-quality internet to every
+                      doorstep. Whether for work, play, or study, 1 Zeta keeps
+                      you connected effortlessly.
+                    </h5>
+                    <div className="d-flex align-items-center">
+                      <p className="p-2">
+                        <i className="fas fa-laptop-house fa-lg"></i>
+                      </p>
+                      <p className="shadows">Affordable & Reliable</p>
+                    </div>
+                    <div className="d-flex align-items-center">
+                      <p className="p-2">
+                        <i className="fas fa-wifi fa-lg"></i>
+                      </p>
+                      <p className="shadows">High-Speed Internet</p>
+                    </div>
+
+                    <div className="homeBtns">
+
+                      <div className="my-3">
+                        <Link className="btn" to={"/mainplan"}>
+                          View Plans
+                        </Link>
+                      </div>
+                      <div className="my-3">
+                        <Link className="btn" to={"/maincontact"}>
+                          Contact
+                        </Link>
+                      </div>
+
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </section>
+
       {/* <div className="netHome">
         <Network isWifi={false} />
       </div> */}
-  
+
       {/* <!-- Information --> */}
       <section className="information">
         <div className="container-fluid">
           <div className="row text-light">
             <div className="col-lg-4 text-center p-5" data-aos="zoom-in">
-              
               <i className="fas fa-tachometer-alt fa-3x p-2"></i>
               <h4 className="py-3">High-Speed Connectivity</h4>
               <p className="para-light">
@@ -91,6 +174,9 @@ function Hero() {
         {/* <!-- end of container --> */}
       </section>
       {/* <!-- end of information --> */}
+      <div style={{height:"7px"}} className="bg-warning">
+
+      </div>
     </div>
   );
 }

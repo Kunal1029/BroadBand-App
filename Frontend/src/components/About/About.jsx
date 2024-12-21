@@ -6,7 +6,7 @@ function About() {
     <div>
       {/* <!-- About --> */}
       <section
-        className="about d-flex align-items-center text-light  py-5"
+        className="about abts d-flex align-items-center text-light  py-5"
         id="about"
       >
         <div className="container mb-5">
@@ -19,16 +19,16 @@ function About() {
               </h1>
               <p className="py-2 para-light mb-4 mt-4">
                 1 Zeta is your trusted partner in 
-                <b className="text-primary"> high-speed internet</b>, dedicated
+                <b className="yellowText"> high-speed internet</b>, dedicated
                 to delivering 
-                 <b className="text-primary"> affordable, reliable connectivity </b>
+                 <b className="yellowText"> affordable, reliable connectivity </b>
                 for homes and businesses alike.
               </p>
               <p className="py-2 para-light">
                 We believe in making quality internet accessible to all, with
                 customer service that&#39;s always ready to help. Experience
                 internet without limits – with
-                <b className="text-primary"> 1 Zeta </b>, you&#39;re connected to
+                <b className="yellowText"> 1 Zeta </b>, you&#39;re connected to
                 more.
               </p>
 

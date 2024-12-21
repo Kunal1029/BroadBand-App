@@ -30,7 +30,7 @@ function OurWork() {
                     <div className="col-6 text-start">
                       <i className="fas fa-briefcase fa-2x text-start"></i>
                       <h2 className="purecounter">
-                        <CountUp end={1258} duration={3} />
+                        <CountUp end={500} duration={3} />+
                       </h2>
                       <p>PROJECTS COMPLETED</p>
                     </div>
@@ -39,7 +39,7 @@ function OurWork() {
                     <div className="col-6">
                       <i className="fas fa-award fa-2x"></i>
                       <h2 className="purecounter">
-                        <CountUp end={150} duration={3} />
+                        <CountUp end={10} duration={4} />
                       </h2>
                       <p>AWARDS</p>
                     </div>
@@ -48,7 +48,7 @@ function OurWork() {
                     <div className="col-6">
                       <i className="fas fa-users fa-2x"></i>
                       <h2 className="purecounter">
-                        <CountUp end={1255} duration={3} />
+                        <CountUp end={1000} duration={3} />+
                       </h2>
                       <p>CUSTOMER ACTIVE</p>
                     </div>
@@ -57,7 +57,7 @@ function OurWork() {
                     <div className="col-6">
                       <i className="fas fa-clock fa-2x"></i>
                       <h2 className="purecounter">
-                        <CountUp end={1157} duration={3} />
+                        <CountUp end={100} duration={3} />+
                       </h2>
                       <p>GOOD REVIEWS</p>
                     </div>

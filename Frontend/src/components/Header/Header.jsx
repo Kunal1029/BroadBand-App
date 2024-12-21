@@ -53,93 +53,270 @@ function Header() {
   }, []);
 
   return (
-    <nav id="navbar" className="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Main navigation">
-      <div className="container" ref={navbarRef}>
-        <Link className="navbar-brand logo-text" to="/">
-          <img src="./assets/images/FIW.png" alt="Logo" width="105" height="38" />
-        </Link>
+    <>
+      <nav
+        id="navbar"
+        className="navbar navbar-expand-lg fixed-top showNav navbar-dark"
+        aria-label="Main navigation"
+      >
+        <div className="container" ref={navbarRef}>
+          <Link className="navbar-brand logo-text" to="/">
+            <img
+              src="./assets/images/FIW.png"
+              alt="Logo"
+              width="105"
+              height="38"
+            />
+          </Link>
 
-        <button
-          className="navbar-toggler p-0 border-0"
-          type="button"
-          onClick={toggleNavbar}
-          aria-expanded={isOpen ? "true" : "false"}
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          <button
+            className="navbar-toggler p-0 border-0"
+            type="button"
+            onClick={toggleNavbar}
+            aria-expanded={isOpen ? "true" : "false"}
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        <div className={`navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNavDropdown">
-          <ul className="navbar-nav ms-auto navbar-nav-scroll">
-            <li className="nav-item">
-              <Link className="nav-link active" to="/" onClick={() => setIsOpen(false)}>
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/mainabout" onClick={() => setIsOpen(false)}>
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#services" onClick={() => setIsOpen(false)}>
-                Services
-              </a>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/mainplan" onClick={() => setIsOpen(false)}>
-                Plans
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/maincontact" onClick={() => setIsOpen(false)}>
-                Contact
-              </Link>
-            </li>
+          <div
+            className={`navbar-collapse ${isOpen ? "show" : ""}`}
+            id="navbarNavDropdown"
+          >
+            <ul className="navbar-nav ms-auto navbar-nav-scroll">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="/"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/mainabout"
+                  onClick={() => setIsOpen(false)}
+                >
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  to="/"
+                  href="#services"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Services
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/mainplan"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Plans
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/maincontact"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Contact
+                </Link>
+              </li>
 
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                href="#"
-              >
-                <i className="fa-solid fa-circle-user fa-2xl" aria-label="User Menu"></i>
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                {isToken ? (
-                  <>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                >
+                  <i
+                    className="fa-solid fa-circle-user fa-2xl"
+                    aria-label="User Menu"
+                  ></i>
+                </a>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  {isToken ? (
+                    <>
+                      <li>
+                        <span className="dropdown-item" onClick={handleLogout}>
+                          LogOut
+                        </span>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/myaccount">
+                          My Account
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
                     <li>
-                      <span className="dropdown-item" onClick={handleLogout}>
-                        LogOut
-                      </span>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/myaccount">
-                        My Account
+                      <Link className="dropdown-item" to="/login">
+                        Login
                       </Link>
                     </li>
-                  </>
-                ) : (
+                  )}
                   <li>
-                    <Link className="dropdown-item" to="/login">
-                      Login
+                    <Link
+                      className="dropdown-item"
+                      to="/maincontact"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Contact Us
                     </Link>
                   </li>
-                )}
-                <li>
-                  <Link className="dropdown-item" to="/maincontact" onClick={() => setIsOpen(false)}>
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </li>
-          </ul>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+
+      <nav
+        id="navbar"
+        className="navbar navbar-expand-lg  showNav1 navbar-dark"
+        aria-label="Main navigation"
+      >
+        <div className="container" ref={navbarRef}>
+          <Link className="navbar-brand logo-text" to="/">
+            <img
+              src="./assets/images/FIW.png"
+              alt="Logo"
+              width="105"
+              height="38"
+            />
+          </Link>
+
+          <button
+            className="navbar-toggler p-0 border-0"
+            type="button"
+            onClick={toggleNavbar}
+            aria-expanded={isOpen ? "true" : "false"}
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            className={`navbar-collapse ${isOpen ? "show" : ""}`}
+            id="navbarNavDropdown"
+          >
+            <ul className="navbar-nav ms-auto navbar-nav-scroll">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="/"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/mainabout"
+                  onClick={() => setIsOpen(false)}
+                >
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  to="/"
+                  href="#services"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Services
+                </a>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/mainplan"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Plans
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/maincontact"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Contact
+                </Link>
+              </li>
+
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                >
+                  <i
+                    className="fa-solid fa-circle-user fa-2xl"
+                    aria-label="User Menu"
+                  ></i>
+                </a>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  {isToken ? (
+                    <>
+                      <li>
+                        <span className="dropdown-item" onClick={handleLogout}>
+                          LogOut
+                        </span>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to="/myaccount">
+                          My Account
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <Link className="dropdown-item" to="/login">
+                        Login
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link
+                      className="dropdown-item"
+                      to="/maincontact"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
 

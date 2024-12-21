@@ -1,5 +1,5 @@
 // import SocialMedia from "./Animation/SocialMedia";
-import "../../App.css"
+import "../../App.css";
 
 function Services() {
   const cardData = [
@@ -39,7 +39,7 @@ function Services() {
     <div>
       {/* <!-- Services --> */}
       <section
-        className="services d-flex align-items-center py-5"
+        className="services d-flex align-items-center py-5 ourServiceImg"
         id="services"
       >
         <div className="container text-light mt-4 ">
@@ -57,18 +57,13 @@ function Services() {
           <div className="row gy-4 py-2 mt-3" data-aos="zoom-in">
             {cardData.map((k, i) => (
               <div className="col-lg-4 " key={i}>
-                <div
-                  className="card bg-transparent tempService"
-                  
-                >
+                <div className="card bg-transparent tempService">
                   <div className="d-flex  gap-3 mt-4 mb-4 align-item-center">
-
                     <div className="ripplebutton">
                       <i className={`${k.iTag}`}></i>
                     </div>
 
                     <h5 className="ms-2">{k.h4Tag}</h5>
-
                   </div>
 
                   <p className="para-light">{k.pTag}</p>
@@ -86,6 +81,45 @@ function Services() {
       {/* <section className=" border bg-warning">
         <SocialMedia />
       </section> */}
+
+      <section
+        className="services d-flex align-items-center py-5 ourServiceImgMob"
+        id="services"
+      >
+        <div className="container text-light mt-4 ">
+          <div className="text-center pb-4">
+            <p>OUR SERVICES</p>
+            <h2 className="py-2">Explore unlimited possibilities</h2>
+            <p className="para-light">
+              Whether you&#39;re working from home, streaming your favourite
+              shows, or connecting with loved ones, 1 Zeta keeps you online
+              without interruptions. Our high-speed, affordable internet adapts
+              to your lifestyle, so you can focus on what matters most.
+            </p>
+          </div>
+
+          <div className="row gy-4 py-2 mt-3" data-aos="zoom-in">
+            {cardData.map((k, i) => (
+              <div className="col-lg-4 " key={i}>
+                <div className="card bg-transparent tempService">
+                  <div className="d-flex  gap-3 mt-4 mb-4 align-item-center">
+                    <div className="ripplebutton">
+                      <i className={`${k.iTag}`}></i>
+                    </div>
+
+                    <h5 className="ms-2">{k.h4Tag}</h5>
+                  </div>
+
+                  <p className="para-light">{k.pTag}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* <!-- end of row --> */}
+        </div>
+        {/* <!-- end of container --> */}
+      </section>
     </div>
   );
 }

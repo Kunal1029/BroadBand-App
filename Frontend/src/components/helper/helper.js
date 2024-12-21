@@ -1,5 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000"; // Update with your API base URL
+// axios.defaults.baseURL = "http://localhost:3000"; // Update with your API base URL
+axios.defaults.baseURL = "https://apizeta.1zeta.com"; // Update with your API base URL
 axios.defaults.timeout = 10000; // Set a timeout of 10 seconds for requests
 
 // Send OTP

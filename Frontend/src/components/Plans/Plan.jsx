@@ -311,9 +311,7 @@ function Plan() {
                   </Modal>
                   {/* buy modal end */}
 
-                  <button className="btn text-dark">
-                    View Details <i className="fa-solid fa-circle-info"></i>
-                  </button>
+                  
                 </div>
               </div>
             </div>

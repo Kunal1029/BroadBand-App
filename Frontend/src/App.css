@@ -41,6 +41,36 @@
 .tempService h5{
   font-size: 1.2rem;
 }
+
+.ourServiceImg{
+   background-image: url("../assets/images/home.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-attachment: fixed;
+}
+.ourServiceImgMob{
+   background-image: url("../assets/images/mobHome.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-attachment: fixed;
+   display: none !important;
+}
+.tempService{
+  background-color: rgba(255, 255, 255, 0.176) !important;
+}
+
+/* new changes */
+
+/* header */
+.showNav1{
+  display: none !important;
+}
+/* header end */
+
+/* new changes end */
+
 @media (max-width:1200px) {
   .tempService{
     height: 350px;
@@ -74,6 +104,28 @@
     position: absolute;
     top: 280px;
   }
+  .showNav1{
+    display: block !important;
+  }
+  .showNav{
+    display: none !important;
+  }
+  .ourServiceImg{
+    background-image: url("../assets/images/home.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: none !important;
+ }
+ .ourServiceImgMob{
+    background-image: url("../assets/images/mobHome.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: block !important;
+ }
 }
 
 @media (max-width:450px) {
