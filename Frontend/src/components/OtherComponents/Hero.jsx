@@ -54,7 +54,7 @@ function Hero() {
             <div className="carousel-item active pabso " >
               
               <video
-                autoPlay
+                autoPlay 
                 muted
                 loop
                 src="./assets/vid4.mp4"
@@ -90,11 +90,11 @@ function Hero() {
                       you connected effortlessly.
                     </h5>
 
-                    <h5 className="para para-light text-white hp showNav1 shadows">
+                    <p className="para para-light text-white hp showNav1 shadows">
                       Bringing affordable, high-quality internet to every
                       doorstep. Whether for work, play, or study, 1 Zeta keeps
                       you connected effortlessly.
-                    </h5>
+                    </p>
                     <div className="d-flex align-items-center">
                       <p className="p-2">
                         <i className="fas fa-laptop-house fa-lg"></i>

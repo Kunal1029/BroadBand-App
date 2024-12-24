@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { type } = require("os");
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,7 +9,7 @@ const userSchema = new mongoose.Schema(
     },
     mobile: {
       type: String,
-      unique: true,
+      // unique: true,
     },
     otp: {
       type: String,
@@ -29,7 +30,10 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     profilePic: { type: String },
-    email: { type: String, unique: true },
+    email: {
+      type: String,
+      // unique: true 
+    },
     address: { type: String },
     planid: {
       type: [String], // Store plan IDs or descriptions
@@ -45,7 +49,10 @@ const userSchema = new mongoose.Schema(
     dob: {
       type: Date,
     },
-    paymentConfirmByUser:{
+    paymentConfirmByUser: {
+      type: Boolean
+    },
+    agreeForPay: {
       type: Boolean
     },
     planStarting: {

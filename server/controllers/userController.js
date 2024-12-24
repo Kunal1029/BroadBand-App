@@ -39,6 +39,7 @@ exports.sendOtp = async (req, res) => {
     const { name, mobile, email } = req.body;
 
     // Validate required fields
+    // console.log(name,mobile,email)
     if (!name) {
       return res.status(400).json({
         success: false,
@@ -189,7 +190,7 @@ exports.sendOtpMail = async (req, res) => {
 exports.verifyOtp = async (req, res) => {
   try {
     const { email, mobile, otp } = req.body;
-
+    // console.log("verify "+email , mobile , otp)
     if ((!email && !mobile) || !otp) {
       return res.status(400).json({
         success: false,
@@ -228,42 +229,6 @@ exports.verifyOtp = async (req, res) => {
     user.activeTokens.push(token);
     await user.save();
 
-    // if(mobile){
-    //   const token = jwt.sign(
-    //     { id: user._id, mobile: user.mobile },
-    //     process.env.JWT_SECRET,
-    //     { expiresIn: "30d" }
-    //   );
-
-    //   user.isVerified = true;
-    //   user.lastlogin = new Date();
-    //   user.activeTokens.push(token);
-    //   await user.save();
-
-    //   res.status(200).json({
-    //     success: true,
-    //     msg: "OTP verified successfully.",
-    //     token,
-    //   });
-    // }else {
-    //   const token = jwt.sign(
-    //     { id: user._id, email: user.email },
-    //     process.env.JWT_SECRET,
-    //     { expiresIn: "30d" }
-    //   );
-
-    //   user.isVerified = true;
-    //   user.lastlogin = new Date();
-    //   user.activeTokens.push(token);
-    //   await user.save();
-
-    //   res.status(200).json({
-    //     success: true,
-    //     msg: "OTP verified successfully.",
-    //     token,
-    //   });
-    // }
-
     return res.status(200).json({
       success: true,
       msg: "OTP verified successfully.",
@@ -277,7 +242,7 @@ exports.verifyOtp = async (req, res) => {
       msg: "verifyOTP last " + error.message,
     });
   }
-};
+}; 
 
 
 exports.logout = async (req, res) => {
@@ -327,7 +292,7 @@ const razorpayInstance = new Razorpay({
 // Create Razorpay Order
 exports.createOrder = async (req, res) => {
   try {
-    const { amount, itemId, mobile, name, email } = req.body;
+    const { amount, itemId, mobile, name, email , agreeForPay } = req.body;
     const options = {
       amount: amount * 100, // amount in smallest currency unit
       currency: "INR",
@@ -337,6 +302,7 @@ exports.createOrder = async (req, res) => {
         name: name,
         email: email,
         itemId,
+        agreeForPay: agreeForPay
       },
     };
 
@@ -377,7 +343,7 @@ exports.verifyPayment = async (req, res) => {
     console.log("Payment Details:", paymentDetails);
     console.log("Notes Details:", paymentDetails.notes);
 
-    const { mobile, name, email } = paymentDetails.notes;
+    const { mobile, name, email , agreeForPay } = paymentDetails.notes;
 
     // Step 3: Validate Mobile Number
     if (!mobile) {
@@ -391,10 +357,9 @@ exports.verifyPayment = async (req, res) => {
 
     // Step 4: Build Update Fields (Conditionally Include Email)
     const updateFields = {
-
-      otp: "111111",
       $set: {
         name: name || "No Name Provided", // Use default if name is missing
+        agreeForPay: agreeForPay,
         mobile,
       },
       $push: {

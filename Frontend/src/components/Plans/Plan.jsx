@@ -29,13 +29,30 @@ const responsive = {
 function Plan() {
   const dispatch = useDispatch();
   const { allplans, isLoading, error } = useSelector((state) => state.user);
-
   const [open, setOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    agreeForPay: "",
+  });
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value, // Update corresponding field
+    });
+  };
 
-  
+  const onOpenModal = (plan) => {
+    setSelectedPlan(plan);
+    setOpen(true);
+  };
+  const onCloseModal = () => {
+    setOpen(false);
+    setSelectedPlan(null);
+  };
 
   const ValidityPeriod = (validityMonths) => {
     const startDate = new Date();
@@ -76,8 +93,19 @@ function Plan() {
   }
   // console.log("Lol DataCheckup " , allplans)
 
-  const handlePay = async (PlanPrice, itemId, mobile ,  name, email ) => {
-    await handlePayment(PlanPrice, itemId, mobile , email , name); // Calls Razorpay helper
+  const handlePay = async (plan,id) => {
+    if (selectedPlan) {
+      await handlePayment(
+        plan,
+        id,
+        formData.mobile,
+        formData.email,
+        formData.name,
+        formData.agreeForPay
+      );
+    }
+
+    setFormData("");
   };
 
   const CustomLeftArrow = ({ onClick }) => {
@@ -124,7 +152,7 @@ function Plan() {
 
   return (
     <section
-      className="plans d-flex align-items-center py-5 myplans"
+      className="plans d-flex align-items-center py-1 myplans"
       style={{ height: "100%" }}
       id="plans"
     >
@@ -208,110 +236,10 @@ function Plan() {
                   <button
                     className="btn text-dark"
                     // onClick={() => handlePay(p.price, index)}
-                    onClick={onOpenModal}
+                    onClick={() => onOpenModal(p)}
                   >
-                    Buy Now
+                    Buy Now ₹{p.price}
                   </button>
-
-                  {/* buy modal  */}
-                  <Modal
-                    open={open}
-                    onClose={onCloseModal}
-                    center
-                    styles={{
-                      overlay: { background: "rgba(194, 196, 209, 0.05)" },
-                      modal: {
-                        borderRadius: "10px",
-                        padding: "20px",
-                        marginTop: "70px",
-                      },
-                    }}
-                  >
-                    <form
-                      className="payModal"
-                      onSubmit={(e) => {
-                        e.preventDefault(); // Prevent default form submission behavior
-                        handlePay(p.price, index , 6322332332 , "kunal" , "kunalshivhare20101@gmail.com"); // Call your payment logic
-                      }}
-                    >
-                      <h5 className="text-center mt-3 mb-4">
-                        Please Check below details
-                      </h5>
-                      <div className="mb-3">
-                        <label htmlFor="name" className="form-label">
-                          Name *
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name"
-                          aria-describedby="nameHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="email" className="form-label">
-                          Email address
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          aria-describedby="emailHelp"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="mobile" className="form-label">
-                          Phone Number *
-                        </label>
-                        <input
-                          type="Number"
-                          className="form-control"
-                          id="mobile"
-                        />
-                      </div>
-
-                      <div className="mb-4 mt-4">
-                        <h5>Plan Details</h5>
-
-                        <ul className="dots">
-                          <li>
-                            Validity : {p.Validity} ({ValidityPeriod(1)})
-                          </li>
-                          <li>
-                            {p.Data} @{p.mbps} Mbps
-                          </li>
-                          <li>
-                            <>{p.ott ? "9+ OTT Included" : "Non OTT plan."}</>
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className="mb-3 form-check">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          id="exampleCheck1"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="exampleCheck1"
-                        >
-                          I agree
-                        </label>
-                      </div>
-                      <button
-                        type="submit"
-                        className="btn text-dark"
-                      >
-                        Pay ₹{p.price}
-                      </button>
-                    </form>
-
-                    
-                  </Modal>
-                  {/* buy modal end */}
-
-                  
                 </div>
               </div>
             </div>
@@ -319,6 +247,122 @@ function Plan() {
         </Carousel>
 
         {/* End of carousel */}
+
+        {/* buy modal  */}
+        <Modal
+          open={open}
+          onClose={onCloseModal}
+          center
+          styles={{
+            overlay: { background: "rgba(194, 196, 209, 0.05)" },
+            modal: {
+              borderRadius: "10px",
+              padding: "20px",
+              marginTop: "70px",
+            },
+          }}
+        >
+          {selectedPlan && (
+            <form
+              className="payModal"
+              
+              onSubmit={(e) => {
+                e.preventDefault(); // Prevent default form submission behavior
+                handlePay(
+                  selectedPlan.price,
+                  selectedPlan._id,
+                  formData.mobile, // Dynamic mobile
+                  formData.name, // Dynamic name
+                  formData.email, // Dynamic email
+                  formData.agreeForPay
+                ); // Call your payment logic
+              }}
+            >
+              <h5 className="text-center mt-3 mb-4">
+                Please Check below details
+              </h5>
+
+              <div className="mb-3">
+                <label htmlFor="name" className="form-label">
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  required
+                  value={formData.name} // Bind to state
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  value={formData.email} // Bind to state
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobile" className="form-label">
+                  Phone Number *
+                </label>
+                <input
+                  type="Number"
+                  className="form-control"
+                  id="mobile"
+                  required
+                  value={formData.mobile} // Bind to state
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="mb-4 mt-4">
+                <h5>Plan Details</h5>
+
+                <ul className="dots">
+                  <li>
+                    Validity : {selectedPlan.Validity} ({ValidityPeriod(1)})
+                  </li>
+                  <li>
+                    {selectedPlan.Data} @{selectedPlan.mbps} Mbps
+                  </li>
+                  <li>
+                    {selectedPlan.ott ? "9+ OTT Included" : "Non OTT plan."}
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="agreeCheck"
+                  required
+                  checked={formData.agreeForPay} // Bind to state with 'checked'
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      agreeForPay: e.target.checked, // Update state based on checkbox status
+                    })
+                  }
+
+                />
+                <label className="form-check-label" htmlFor="agreeCheck">
+                  I agree
+                </label>
+              </div>
+              <button type="submit" className="btn text-dark">
+                Pay ₹{selectedPlan.price}
+              </button>
+            </form>
+          )}
+        </Modal>
+        {/* buy modal end */}
 
         <div className="my-3 text-center mt-5 mb-5">
           <Link className="btn" to={"/mainplan"}>

@@ -12,7 +12,7 @@ function Header() {
   const navigate = useNavigate();
 
   const toggleNavbar = () => setIsOpen(!isOpen);
-
+  
   const handleLogout = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -103,14 +103,14 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link"
                   to="/"
-                  href="#services"
+                  href="#service"
                   onClick={() => setIsOpen(false)}
                 >
                   Services
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link

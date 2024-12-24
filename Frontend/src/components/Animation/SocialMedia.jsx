@@ -50,6 +50,7 @@ function SocialMedia() {
     <section className="container ">
       <div className="SMapp">
         <div className="smrow  mb-5 ">
+          
           <div className="SMHeader col-lg-5 mt-5 mb-5">
             <h1>Stream your favorites on demand!</h1>
             <p className="mt-3">

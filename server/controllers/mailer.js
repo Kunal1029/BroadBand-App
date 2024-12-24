@@ -34,12 +34,12 @@ const MailGenerator = new Mailgen({
   },
 });
 
-exports.registerMail = async ({ name, adminEmail, otp }) => {
+exports.registerMail = async ({ name, adminEmail, email, otp }) => {
   try {
     // Generate the email content using Mailgen
     // console.log("email ",adminEmail , " name ", name , " otp " , otp)
-    const email = adminEmail;
-
+    const emails = adminEmail || email;
+// console.log("rm "+emails)
     let emailTemplate = {
       body: {
         name:"Dear " + name || "User",
@@ -57,7 +57,7 @@ exports.registerMail = async ({ name, adminEmail, otp }) => {
     
     const message = {
       from: `"1zeta" <kunalshivhare200@gmail.com>`,
-      to: email,
+      to: emails,
       subject: otp ? `Your 1zeta OTP Code is ${otp}` : "Welcome to 1zeta!",
       html: emailBody,
     };

@@ -4,8 +4,13 @@
     
 }
 
-.contact{
+.contact{ 
     height: 100%;
+}
+
+
+.cntMob{
+    display: none !important;
 }
 
 .myMap h2{
@@ -34,6 +39,12 @@
     .myMap iframe{
         height: 300px;
         width: 90%;
+    }
+    .cntMob{
+        display: block  !important;
+    }
+    .cntlap{
+        display: none !important;
     }
 }
 @media (max-width:480px) {

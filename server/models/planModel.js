@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const { type } = require("os");
 
 const planSchema = new mongoose.Schema(
-  {
+  { 
     planName: {
       type: String,
       required: true,

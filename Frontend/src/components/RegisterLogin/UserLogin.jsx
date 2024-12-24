@@ -12,13 +12,13 @@ function UserLogin() {
   const [showErrors, setShowErrors] = useState(false); // Track if errors should be displayed
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { otpSent, isLoading, error } = useSelector((state) => state.user);
-
+  
   const formik = useFormik({
     initialValues: {
       name: "",
-      mobile: "",
+      mobile: ``,
+      email: ``,
       otp: "",
     },
     validate: profileValidation,
@@ -26,8 +26,13 @@ function UserLogin() {
     validateOnChange: false,
     onSubmit: async (values) => {
       try {
+        
         const verifyPromise = dispatch(
-          verifyUserOtp({ mobile: values.mobile, otp: values.otp })
+          verifyUserOtp({
+            mobile: values.mobile,
+            otp: values.otp,
+            email: values.email,
+          })
         );
         toast.promise(verifyPromise, {
           loading: "Verifying OTP...",
@@ -57,14 +62,18 @@ function UserLogin() {
       fetchOtp({
         name: formik.values.name,
         mobile: formik.values.mobile,
+        email: formik.values.email,
       })
     )
-      .unwrap()
+      .unwrap() 
       .then(() => {
         toast.success("OTP Sent Successfully!");
       })
       .catch((err) => {
         toast.error(err || "Failed to send OTP.");
+      })
+      .finally(() => {
+        setShowErrors(false);
       });
   };
 
@@ -98,22 +107,48 @@ function UserLogin() {
                 </li>
               </div>
 
+              {/* <div className="text-start ms-5">
+               
+                
+              </div> */}
+
               <div className="text-start ms-5">
-                <label htmlFor="mobile">Mobile Number</label>
-                <li>
-                  <input
-                    type="number"
-                    className="inputFields"
-                    id="mobile"
-                    name="mobile"
-                    placeholder="10 Digit Phone Number"
-                    {...formik.getFieldProps("mobile")}
-                    disabled={otpSent}
-                  />
-                  {showErrors && formik.errors.mobile && (
-                    <p className="text-danger">{formik.errors.mobile}</p>
-                  )}
-                </li>
+                <div>
+                  <label htmlFor="mobile">Mobile Number</label>
+                  <li>
+                    <input
+                      type="number"
+                      className="inputFields"
+                      id="mobile"
+                      name="mobile"
+                      placeholder="10 Digit Phone Number"
+                      {...formik.getFieldProps("mobile")}
+                      disabled={otpSent}
+                    />
+                    {showErrors && formik.errors.mobile && (
+                      <p className="text-danger">{formik.errors.mobile}</p>
+                    )}
+                  </li>
+                </div>
+                <h4 className="text-center w-75">Or</h4>
+                <div>
+                  <label htmlFor="mobile">Email </label>
+                  <li>
+                    <input
+                      type="email"
+                      className="inputFields"
+                      id="email"
+                      name="email"
+                      placeholder="Enter email"
+                      {...formik.getFieldProps("email")}
+                      disabled={otpSent}
+                    />
+                    {showErrors && formik.errors.email && (
+                      <p className="text-danger">{formik.errors.email}</p>
+                    )}
+                  </li>
+                </div>
+
                 {!otpSent && (
                   <button
                     type="button"

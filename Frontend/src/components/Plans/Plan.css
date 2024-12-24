@@ -3,7 +3,7 @@
 .dots li {
   list-style:inside;
   /* margin-bottom: 5px; Add space between list items (optional) */
-}
+} 
 /* .react-responsive-modal-container {
   height: 100%;
   outline: 0;
@@ -18,7 +18,10 @@
   width: 30vw;
   height: 100%;
 }
-
+.planPad{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 .myplans { 
   position: relative;
   /* background-image: url(../assets/images/6.png); */
@@ -134,6 +137,11 @@
     /* height: 350px; */
     border-radius: 10px;
   }
+  .payModal{
+   
+    width: 50vw;
+    height: 100%;
+  }
 }
 
 @media (max-width:767px) {
@@ -145,6 +153,10 @@
   }
   .mainPlanBtn .btn{
     font-size: 0.8rem;
+  }
+  .planPad{
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
   .valData{
     display: flex;
@@ -164,6 +176,11 @@
   .temp767 .btn{
     font-size: 0.7rem;
     padding: 7px 3px;
+  }
+  .payModal{
+   
+    width: 80vw;
+    height: 100%;
   }
 }
 
@@ -191,6 +208,14 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+  .payModal{
+   
+    width: 100%;
+    height: 100%;
+  }
+  .dots li{
+    font-size: 0.7rem !important;
   }
 }
 

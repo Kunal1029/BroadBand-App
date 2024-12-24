@@ -5,8 +5,8 @@ function About() {
   return (
     <div>
       {/* <!-- About --> */}
-      <section
-        className="about abts d-flex align-items-center text-light  py-5"
+      <section 
+        className="about abts d-flex align-items-center text-light  py-1"
         id="about"
       >
         <div className="container mb-5">

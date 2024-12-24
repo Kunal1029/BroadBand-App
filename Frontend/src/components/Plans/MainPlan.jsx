@@ -40,7 +40,7 @@ function MainPlan() {
 
   return (
     <section
-      className="plans d-flex align-items-center py-5 myplans "
+      className="plans d-flex align-items-center planPad myplans "
       style={{ height: "100%" }}
       id="plans"
     >

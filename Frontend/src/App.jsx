@@ -12,8 +12,10 @@ import MainContact from './components/Contact/MainContact';
 import NewUserRegister from './components/RegisterLogin/NewUserRegister';
 import UserLogin from './components/RegisterLogin/UserLogin';
 import DataCheckUp from './DataCheckUp.jsx';
+import Lkg from './L.jsx';
 
 function App() {
+    const token = localStorage.getItem("authToken");
     return (
         <BrowserRouter>
             <Routes>
@@ -28,6 +30,7 @@ function App() {
                     <Route path="register" element={<NewUserRegister />} />
                     <Route path="login" element={<UserLogin />} />
                     <Route path="/lol" element={<DataCheckUp />} />
+                    <Route path='/ss' element={token ? <Lkg/> : ""} />
                 </Route>
             </Routes>
         </BrowserRouter>

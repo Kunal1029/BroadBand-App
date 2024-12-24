@@ -7,16 +7,16 @@ import {
   getAllEnquery,
   getPlans,
   addPlan,
-  handlePayment
+  handlePayment,
 } from "../helper/helper"; // Ensure correct import path
 
 // Async action to get OTP
 export const fetchOtp = createAsyncThunk(
   "user/fetchOtp",
-  async ({ name, mobile }, { rejectWithValue }) => {
+  async ({ name, mobile, email }, { rejectWithValue }) => {
     try {
-      await getOtp({ name, mobile });
-      return { name, mobile };
+      await getOtp({ name, mobile, email });
+      return { name, mobile, email };
     } catch (error) {
       return rejectWithValue(error.message || "Failed to send OTP.");
     }
@@ -26,9 +26,10 @@ export const fetchOtp = createAsyncThunk(
 // Async action to verify OTP
 export const verifyUserOtp = createAsyncThunk(
   "user/verifyOtp",
-  async ({ mobile, otp }, { rejectWithValue }) => {
+  async ({ mobile, email, otp }, { rejectWithValue }) => {
     try {
-      const response = await verifyOtp({ mobile, otp });
+      const response = await verifyOtp({ mobile, email, otp });
+      console.log(" verifyUserOtp " + response);
       return response;
     } catch (error) {
       return rejectWithValue(error.message || "Invalid OTP.");
@@ -114,27 +115,23 @@ export const addMorePlans = createAsyncThunk(
   }
 );
 
-
 // payment
 export const payment = createAsyncThunk(
   "user/payment",
 
-  async (
-    { PlanPrice, itemId },
-    { rejectWithValue }
-  ) => {
+  async ({ PlanPrice, itemId }, { rejectWithValue }) => {
     try {
       const response = await handlePayment({
-        PlanPrice, itemId
+        PlanPrice,
+        itemId,
       });
-      console.log(response , " slice payment")
+      console.log(response, " slice payment");
       return response;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to sending data .");
     }
   }
 );
-
 
 const userSlice = createSlice({
   name: "user",
@@ -154,8 +151,8 @@ const userSlice = createSlice({
     Validity: "",
     ott: "",
     price: "",
-    PlanPrice:"",
-    itemId:"",
+    PlanPrice: "",
+    itemId: "",
     enqueries: [], // Make sure this is an array
     allplans: [],
   },
@@ -168,27 +165,28 @@ const userSlice = createSlice({
       state.token = "";
       state.isAuthenticated = false;
       state.error = null;
-      (state.email = ""), (state.comment = "");
+      state.email = "";
+      state.comment = "";
     },
   },
   extraReducers: (builder) => {
     builder
 
-    // Handle payment plans
+      // Handle payment plans
 
-    .addCase(payment.pending, (state) => {
-      state.isLoading = true;
-      state.error = null;
-    })
-    .addCase(payment.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.PlanPrice = action.payload.PlanPrice;
-      state.itemId = action.payload.itemId;
-    })
-    .addCase(payment.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    })
+      .addCase(payment.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(payment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.PlanPrice = action.payload.PlanPrice;
+        state.itemId = action.payload.itemId;
+      })
+      .addCase(payment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
 
       // Handle add new plans
       .addCase(addMorePlans.pending, (state) => {
@@ -264,6 +262,7 @@ const userSlice = createSlice({
         state.otpSent = true;
         state.name = action.payload.name;
         state.mobile = action.payload.mobile;
+        state.email = action.payload.email;
       })
       .addCase(fetchOtp.rejected, (state, action) => {
         state.isLoading = false;
@@ -275,12 +274,27 @@ const userSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
+      // .addCase(verifyUserOtp.fulfilled, (state, action) => {
+      //   console.log("verifyUserOtp fulfilled action:", action.payload); // Debugging
+      //   state.isLoading = false;
+      //   state.token = action.payload.token; // Set the token from verification response
+      //   localStorage.setItem("authToken", state.token); // Save token to localStorage
+      //   state.isAuthenticated = true; // Set authentication state to true
+      // })
       .addCase(verifyUserOtp.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.token = action.payload.token; // Set the token from verification response
-        localStorage.setItem("authToken", state.token); // Save token to localStorage
-        state.isAuthenticated = true; // Set authentication state to true
+        const token = action.payload.token;
+
+        if (token) {
+          // console.log("Setting token to localStorage:", token); // Debug log
+          localStorage.setItem("authToken", token);
+          state.token = token;
+          state.isAuthenticated = true;
+        } else {
+          // console.error("No token in action.payload:", action.payload);
+        }
       })
+
       .addCase(verifyUserOtp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;

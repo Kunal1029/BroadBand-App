@@ -1,6 +1,6 @@
 import axios from "axios";
-// axios.defaults.baseURL = "http://localhost:3000"; // Update with your API base URL
-axios.defaults.baseURL = "https://apizeta.1zeta.com"; // Update with your API base URL
+axios.defaults.baseURL = "http://localhost:3000"; // Update with your API base URL
+// axios.defaults.baseURL = "https://apizeta.1zeta.com"; // Update with your API base URL
 axios.defaults.timeout = 10000; // Set a timeout of 10 seconds for requests
 
 // Send OTP
@@ -10,7 +10,7 @@ axios.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
-
+ 
 
 export async function getOtp(data) {
   try {
@@ -20,7 +20,7 @@ export async function getOtp(data) {
     throw new Error(error.response?.data?.message || "Failed to send OTP.");
   }
 }
-
+ 
 // Verify OTP
 export async function verifyOtp(data) {
   try {
@@ -96,7 +96,7 @@ const loadRazorpayScript = () => {
   });
 };
 
-export async function handlePayment(PlanPrice, itemId, mobile, email, name) {
+export async function handlePayment(PlanPrice, itemId, mobile, email, name ,agreeForPay ) {
 
   try {
     const scriptLoaded = await loadRazorpayScript();
@@ -115,6 +115,7 @@ export async function handlePayment(PlanPrice, itemId, mobile, email, name) {
       name: name,
       email: email,
       mobile: mobile,
+      agreeForPay: agreeForPay
     };
 
     // Create order on the backend
@@ -126,7 +127,7 @@ export async function handlePayment(PlanPrice, itemId, mobile, email, name) {
       key: data.key, // Razorpay Key ID
       amount: data.order.amount, // Amount in paise
       currency: data.order.currency,
-      name: "1Zeta",
+      name: name,
       description: "Good Plan Customize plan description in jsx",
       order_id: data.order.id, // Order ID returned by the backend
 

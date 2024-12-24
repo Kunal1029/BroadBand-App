@@ -6,11 +6,11 @@ function MainAbout() {
   return (
     <div>
       {/* <!-- About --> */}
-      <section className="about  text-light py-5" id="about">
+      <section className="about text-light py-5" id="about">
         <div className="container">
           <div className="row d-flex align-items-center">
-            <div className="col-lg-8 mt-5" data-aos="fade-right">
-              <p className="mb-3 mt-5">ABOUT US</p>
+            <div className="col-lg-8 abtmargin" data-aos="fade-right">
+              <p className="mb-3 abtmargin">ABOUT US</p>
               <h1>
                 We are top internet <br />
                 service company
