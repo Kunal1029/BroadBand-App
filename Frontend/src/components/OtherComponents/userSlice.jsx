@@ -8,6 +8,8 @@ import {
   getPlans,
   addPlan,
   handlePayment,
+  myacc,
+  userAcc,
 } from "../helper/helper"; // Ensure correct import path
 
 // Async action to get OTP
@@ -29,7 +31,7 @@ export const verifyUserOtp = createAsyncThunk(
   async ({ mobile, email, otp }, { rejectWithValue }) => {
     try {
       const response = await verifyOtp({ mobile, email, otp });
-      console.log(" verifyUserOtp " + response);
+      // console.log(" verifyUserOtp slice " + response);
       return response;
     } catch (error) {
       return rejectWithValue(error.message || "Invalid OTP.");
@@ -66,13 +68,39 @@ export const userEnqueries = createAsyncThunk(
 export const fetchAllEnqueries = createAsyncThunk(
   "user/fetchAllEnqueries",
   async (_, { rejectWithValue }) => {
-    console.log("hi yo");
+    // console.log("hi yo");
     try {
       const response = await getAllEnquery();
       // console.log("API Response:", response); // Log the response
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch enquiries.");
+    }
+  }
+);
+
+export const userAccounts = createAsyncThunk(
+  "user/fetchusers",
+  async ({ _id, mobile, email }, { rejectWithValue }) => {
+    try {
+      const data = await userAcc({ _id, mobile, email }); // `myacc` already returns `response.data`
+      // console.log("slice = ", data.user)
+      return data.user;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to fetch user");
+    }
+  }
+);
+
+export const myaccount = createAsyncThunk(
+  "user/fetchUser",
+  async ({ _id, mobile, email }, { rejectWithValue }) => {
+    try {
+      const data = await myacc({ _id, mobile, email }); // `myacc` already returns `response.data`
+      // console.log("slice = ", data.user)
+      return data.user;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to fetch user");
     }
   }
 );
@@ -115,20 +143,27 @@ export const addMorePlans = createAsyncThunk(
   }
 );
 
-// payment
 export const payment = createAsyncThunk(
   "user/payment",
-
-  async ({ PlanPrice, itemId }, { rejectWithValue }) => {
+  async (
+    { _id, PlanPrice, itemId, mobile, email, name, agreeForPay },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await handlePayment({
+      // Delegate the logic to the helper function
+      const response = await handlePayment(
+        _id,
         PlanPrice,
         itemId,
-      });
+        mobile,
+        email,
+        name,
+        agreeForPay
+      );
       console.log(response, " slice payment");
       return response;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to sending data .");
+      return rejectWithValue(error.message || "Payment process failed.");
     }
   }
 );
@@ -136,6 +171,8 @@ export const payment = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
+    id: null,
+    // _id:"",
     name: "",
     mobile: "",
     otpSent: false,
@@ -152,9 +189,12 @@ const userSlice = createSlice({
     ott: "",
     price: "",
     PlanPrice: "",
+    userData: {},
     itemId: "",
     enqueries: [], // Make sure this is an array
     allplans: [],
+    order: null,
+    userOne:""
   },
 
   reducers: {
@@ -162,8 +202,6 @@ const userSlice = createSlice({
       state.name = "";
       state.mobile = "";
       state.otpSent = false;
-      state.token = "";
-      state.isAuthenticated = false;
       state.error = null;
       state.email = "";
       state.comment = "";
@@ -172,16 +210,44 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // Handle payment plans
+      //Handle Fetch user
+      .addCase(userAccounts.pending, (state) => {
+        state.status = "loading"; 
+      })
+      .addCase(userAccounts.fulfilled, (state,action) => {
+        state.status = "succeeded"; 
+        // state.userOne = action.payload._id
+        state.userOne = { ...state.userOne, ...action.payload };
 
+      })
+      .addCase(userAccounts.rejected, (state, action) => {
+        state.status = "failed"; 
+        state.error = action.payload || "Failed to fetch user"; 
+      })
+
+      //Handle Fetch user
+      .addCase(myaccount.pending, (state) => {
+        state.status = "loading"; 
+      })
+      .addCase(myaccount.fulfilled, (state) => {
+        state.status = "succeeded"; 
+      })
+      .addCase(myaccount.rejected, (state, action) => {
+        state.status = "failed"; 
+        state.error = action.payload || "Failed to fetch user"; 
+      })
+
+      // Handle payment plans
       .addCase(payment.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(payment.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.PlanPrice = action.payload.PlanPrice;
-        state.itemId = action.payload.itemId;
+        // state.PlanPrice = action.payload.PlanPrice;
+        // state.itemId = action.payload.itemId;
+        // state._id = action.payload.
+        console.log("Pay " + action.payload);
       })
       .addCase(payment.rejected, (state, action) => {
         state.isLoading = false;
@@ -284,14 +350,25 @@ const userSlice = createSlice({
       .addCase(verifyUserOtp.fulfilled, (state, action) => {
         state.isLoading = false;
         const token = action.payload.token;
+        const id = action.payload.user._id;
+
+        console.log("action.payload.user = ", action.payload.user);
 
         if (token) {
           // console.log("Setting token to localStorage:", token); // Debug log
           localStorage.setItem("authToken", token);
+          localStorage.setItem("id", id);
+          localStorage.setItem("isLoggedIn", "true");
+          if (action.payload.user.email) {
+            localStorage.setItem("email", action.payload.user.email);
+          } else {
+            localStorage.setItem("mobile", action.payload.user.mobile);
+          }
           state.token = token;
           state.isAuthenticated = true;
+          state.userData = { ...state.userData, ...action.payload.user };
         } else {
-          // console.error("No token in action.payload:", action.payload);
+          console.error("No token in action.payload:", action.payload);
         }
       })
 
@@ -312,6 +389,10 @@ const userSlice = createSlice({
         state.name = "";
         state.mobile = "";
         localStorage.removeItem("authToken"); // Remove token from localStorage
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("id");
+        localStorage.removeItem("email");
+        localStorage.removeItem("mobile");
       })
       .addCase(logoutAction.rejected, (state, action) => {
         state.isLoading = false;

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { logoutAction } from "../OtherComponents/userSlice"; // Ensure correct import path
 import { toast } from "react-hot-toast";
 
-function Header() {
+function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isToken, setIsToken] = useState(!!localStorage.getItem("authToken")); // Check token on initial render
   const navbarRef = useRef(null);
@@ -12,7 +13,7 @@ function Header() {
   const navigate = useNavigate();
 
   const toggleNavbar = () => setIsOpen(!isOpen);
-  
+
   const handleLogout = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -23,8 +24,15 @@ function Header() {
       await dispatch(logoutAction(token));
       setIsToken(false);
       localStorage.removeItem("authToken");
+      localStorage.removeItem("id");
+      localStorage.removeItem("_id");
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("email");
+      localStorage.removeItem("mobile");
+      localStorage.clear();
       toast.success("Logged out successfully.");
       navigate("/login");
+      window.location.reload()
     } catch (error) {
       toast.error(error.message || "Error during logout.");
     }
@@ -48,9 +56,7 @@ function Header() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen, handleClickOutside]);
 
-  useEffect(() => {
-    setIsToken(!!localStorage.getItem("authToken"));
-  }, []);
+ 
 
   return (
     <>
@@ -149,7 +155,7 @@ function Header() {
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  {isToken ? (
+                  {isLoggedIn && (
                     <>
                       <li>
                         <span className="dropdown-item" onClick={handleLogout}>
@@ -157,18 +163,20 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/myaccount">
+                        <Link className="dropdown-item" to="/user-details">
                           My Account
                         </Link>
                       </li>
                     </>
-                  ) : (
+                  )}
+                  {!isLoggedIn && (
                     <li>
                       <Link className="dropdown-item" to="/login">
                         Login
                       </Link>
                     </li>
                   )}
+
                   <li>
                     <Link
                       className="dropdown-item"
@@ -184,7 +192,6 @@ function Header() {
           </div>
         </div>
       </nav>
-
 
       <nav
         id="navbar"
@@ -289,7 +296,7 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <Link className="dropdown-item" to="/myaccount">
+                        <Link className="dropdown-item" to="/user-details">
                           My Account
                         </Link>
                       </li>
@@ -320,4 +327,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header; //don't touch design , just update only things which should updated related to authomatic refresh after login ,and give full code with all updation and designing

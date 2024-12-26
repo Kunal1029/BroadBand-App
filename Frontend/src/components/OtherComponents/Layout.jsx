@@ -14,11 +14,12 @@ const Layout = () => {
     return () => clearTimeout(timer); // Clear timeout on cleanup
   }, [location]);
 
+  const isLoggedIn = localStorage.getItem("isLoggedIn")
   return (
     <div className="Mylayout">
       
         <div className={`${loading && "loaderRender"}`}>
-          <Header />
+          <Header isLoggedIn={isLoggedIn} />
         </div>
 
         {loading && (

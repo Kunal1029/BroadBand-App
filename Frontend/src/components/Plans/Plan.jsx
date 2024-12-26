@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./Plan.css";
 import { Link } from "react-router-dom";
-import { fetchAllPlans, payment } from "../OtherComponents/userSlice.jsx";
+import { fetchAllPlans, payment , userAccounts } from "../OtherComponents/userSlice.jsx";
 import { handlePayment } from "../helper/helper.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -28,7 +28,28 @@ const responsive = {
 
 function Plan() {
   const dispatch = useDispatch();
-  const { allplans, isLoading, error } = useSelector((state) => state.user);
+
+  const _id = localStorage.getItem("id");
+  // const email = localStorage.getItem("email");
+  // const mobile = localStorage.getItem("mobile");
+  const { userData, userOne, allplans, isLoading, error } = useSelector((state) => state.user);
+
+  const [usrDta,setUsrDta] = useState({})
+
+  useEffect(()=>{
+    const fetchUserData = async () => {
+      await dispatch(userAccounts({ _id })); // Fetch user data from the server
+    };
+
+    fetchUserData();
+  },[_id, dispatch])
+
+  useEffect(() => {
+    if (userData || userOne) {
+      setUsrDta(userData); // Set user data after state updates
+    }
+  }, [userData , userOne]);
+
   const [open, setOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [formData, setFormData] = useState({
@@ -37,6 +58,20 @@ function Plan() {
     mobile: "",
     agreeForPay: "",
   });
+
+  useEffect(() => {
+    // Initialize formData when usrDta updates
+    setFormData((prevData) => ({
+      ...prevData,
+      name: userData.name || userOne.name || "", // Default to userOne.name if available
+      email: userData.email || userOne.email || "",
+      mobile: userData.mobile || userOne.mobile || "",
+    }));
+  }, [usrDta , userData , userOne]);
+
+  // console.log("pln", JSON.stringify(userData, null, 2)); // Pretty-print JSON data
+  // console.log("pln1", JSON.stringify(userOne, null, 2));
+  // console.log("pln2", JSON.stringify(usrDta, null, 2));
 
   const handleChange = (e) => {
     setFormData({
@@ -91,9 +126,8 @@ function Plan() {
   if (error) {
     return <div>{error}</div>;
   }
-  // console.log("Lol DataCheckup " , allplans)
 
-  const handlePay = async (plan,id) => {
+  const handlePay = async (plan, id) => {
     if (selectedPlan) {
       await handlePayment(
         plan,
@@ -101,7 +135,8 @@ function Plan() {
         formData.mobile,
         formData.email,
         formData.name,
-        formData.agreeForPay
+        formData.agreeForPay,
+        _id
       );
     }
 
@@ -265,7 +300,6 @@ function Plan() {
           {selectedPlan && (
             <form
               className="payModal"
-              
               onSubmit={(e) => {
                 e.preventDefault(); // Prevent default form submission behavior
                 handlePay(
@@ -350,13 +384,12 @@ function Plan() {
                       agreeForPay: e.target.checked, // Update state based on checkbox status
                     })
                   }
-
                 />
                 <label className="form-check-label" htmlFor="agreeCheck">
                   I agree
                 </label>
               </div>
-              <button type="submit" className="btn text-dark">
+              <button type="submit" className="btn text-dark" >
                 Pay ₹{selectedPlan.price}
               </button>
             </form>

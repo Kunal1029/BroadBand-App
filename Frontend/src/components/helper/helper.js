@@ -10,7 +10,7 @@ axios.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
- 
+
 
 export async function getOtp(data) {
   try {
@@ -20,11 +20,12 @@ export async function getOtp(data) {
     throw new Error(error.response?.data?.message || "Failed to send OTP.");
   }
 }
- 
+
 // Verify OTP
 export async function verifyOtp(data) {
   try {
     const response = await axios.post(`/api/user/verifyotp`, data);
+    // console.log("vrfyotp helper = "+response.data)
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to verify OTP.");
@@ -83,7 +84,49 @@ export async function addPlan(data) {
   }
 }
 
+export async function myacc({ _id, email, mobile }) {
+  try {
+    const token = localStorage.getItem('authToken'); // Retrieve token from localStorage
 
+    if (!token) {
+      throw new Error('Authentication token is missing.');
+    }
+
+    const query = mobile
+      ? `mobile=${mobile}`
+      : email
+        ? `email=${email}`
+        : `_id=${_id}`;
+
+    const response = await axios.get(`/api/user/myacc?${query}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Send token in Authorization header
+      },
+    });
+    console.log("helper = ", query)
+    console.log("helper = ", response)
+    console.log("helper = ", token)
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Failed to fetch user data.");
+  }
+}
+
+export async function userAcc({ _id, email, mobile }) {
+  try {
+    const query = mobile
+      ? `mobile=${mobile}`
+      : email
+        ? `email=${email}`
+        : `_id=${_id}`;
+
+    const response = await axios.get(`/api/user/useraccount?${query}`)
+    return response.data;
+
+  } catch (error) {
+    throw new Error(error.response?.data?.msg || "Failed to fetch user data.");
+  }
+}
 
 // PaymentButton.jsx
 const loadRazorpayScript = () => {
@@ -96,7 +139,7 @@ const loadRazorpayScript = () => {
   });
 };
 
-export async function handlePayment(PlanPrice, itemId, mobile, email, name ,agreeForPay ) {
+export async function handlePayment(PlanPrice, itemId, mobile, email, name, agreeForPay, _id) {
 
   try {
     const scriptLoaded = await loadRazorpayScript();
@@ -115,7 +158,8 @@ export async function handlePayment(PlanPrice, itemId, mobile, email, name ,agre
       name: name,
       email: email,
       mobile: mobile,
-      agreeForPay: agreeForPay
+      agreeForPay: agreeForPay,
+      _id: _id
     };
 
     // Create order on the backend

@@ -227,12 +227,17 @@ exports.verifyOtp = async (req, res) => {
     user.isVerified = true;
     user.lastlogin = new Date();
     user.activeTokens.push(token);
+    const _id = user._id
     await user.save();
-
+    // console.log("usr = "+user)
     return res.status(200).json({
       success: true,
       msg: "OTP verified successfully.",
       token,
+      email,
+      mobile,
+      _id,
+      user
     });
 
   } catch (error) {
@@ -242,7 +247,7 @@ exports.verifyOtp = async (req, res) => {
       msg: "verifyOTP last " + error.message,
     });
   }
-}; 
+};
 
 
 exports.logout = async (req, res) => {
@@ -282,6 +287,84 @@ exports.logout = async (req, res) => {
   }
 };
 
+exports.myaccount = async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1]; // Extract token
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        msg: "Authentication required.",
+      });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
+
+    req.user = decoded;
+
+    // Get query parameters
+    const { _id, mobile, email } = req.query;
+
+    const query = mobile
+      ? { mobile }
+      : email
+        ? { email }
+        : { _id };
+
+    // Find the user based on the query
+    const user = await userModel.findOne(query); // Exclude password field
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        msg: "User not found.",
+      });
+    }
+    // console.log(user)
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: "Error: " + error.message,
+    });
+  }
+};
+
+exports.userOne = async (req, res) => {
+  try {
+    const { _id, mobile, email } = req.query;
+
+    const query = mobile
+      ? { mobile }
+      : email
+        ? { email }
+        : { _id };
+
+    // Find the user based on the query
+    const user = await userModel.findOne(query); // Exclude password field
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        msg: "User not found.",
+      });
+    }
+    // console.log(user)
+    return res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      msg: "Error: " + error.message,
+    });
+  }
+};
+
 // Razorpay Payment Integration
 
 const razorpayInstance = new Razorpay({
@@ -292,7 +375,7 @@ const razorpayInstance = new Razorpay({
 // Create Razorpay Order
 exports.createOrder = async (req, res) => {
   try {
-    const { amount, itemId, mobile, name, email , agreeForPay } = req.body;
+    const { amount, itemId, mobile, name, email, agreeForPay, _id } = req.body;
     const options = {
       amount: amount * 100, // amount in smallest currency unit
       currency: "INR",
@@ -302,7 +385,8 @@ exports.createOrder = async (req, res) => {
         name: name,
         email: email,
         itemId,
-        agreeForPay: agreeForPay
+        agreeForPay: agreeForPay,
+        _id: _id
       },
     };
 
@@ -343,7 +427,7 @@ exports.verifyPayment = async (req, res) => {
     console.log("Payment Details:", paymentDetails);
     console.log("Notes Details:", paymentDetails.notes);
 
-    const { mobile, name, email , agreeForPay } = paymentDetails.notes;
+    const { mobile, name, email, agreeForPay, _id } = paymentDetails.notes;
 
     // Step 3: Validate Mobile Number
     if (!mobile) {
@@ -374,25 +458,60 @@ exports.verifyPayment = async (req, res) => {
     }
 
     // Step 5: Perform Upsert Operation (Insert or Update User)
-    const updatedUser = await userModel.findOneAndUpdate(
-      { mobile }, // Find user by mobile number
-      updateFields,
-      {
-        new: true,               // Return the updated document
-        upsert: true,            // Create new document if user doesn't exist
-        setDefaultsOnInsert: true, // Apply default values from the schema on insert
-      }
-    );
+    if (_id) {
+      const updatedUser = await userModel.findOneAndUpdate(
+        { _id },
+        updateFields,
+        {
+          new: true,               // Return the updated document
+          upsert: true,            // Create new document if user doesn't exist
+          setDefaultsOnInsert: true, // Apply default values from the schema on insert
+        }
+      );
 
-    console.log("Updated User:", updatedUser);
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified and user updated successfully.",
+        paymentDetails,
+        updatedUser,
+      });
+    } else if (email) {
+      const updatedUser = await userModel.findOneAndUpdate(
+        { email }, // Find user by mobile number or email.
+        updateFields,
+        {
+          new: true,               // Return the updated document
+          upsert: true,            // Create new document if user doesn't exist
+          setDefaultsOnInsert: true, // Apply default values from the schema on insert
+        }
+      )
 
-    // Step 6: Final Response
-    return res.status(200).json({
-      success: true,
-      message: "Payment verified and user updated successfully.",
-      paymentDetails,
-      updatedUser,
-    });
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified and user updated successfully.",
+        paymentDetails,
+        updatedUser,
+      })
+    } else if (mobile) {
+      const updatedUser = await userModel.findOneAndUpdate(
+        { mobile }, // Find user by mobile number or email.
+        updateFields,
+        {
+          new: true,               // Return the updated document
+          upsert: true,            // Create new document if user doesn't exist
+          setDefaultsOnInsert: true, // Apply default values from the schema on insert
+        }
+      )
+
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified and user updated successfully.",
+        paymentDetails,
+        updatedUser,
+      });
+    }
+
+
   } catch (error) {
     console.error("Error verifying Razorpay payment:", error);
     res.status(500).json({

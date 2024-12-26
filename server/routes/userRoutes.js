@@ -10,7 +10,9 @@ const {
   createOrder,
   verifyPayment,
   verifyUser,
-  sendOtpMail
+  sendOtpMail,
+  myaccount,
+  userOne
 } = require("../controllers/userController");
 
 const { userEnquery } = require("../controllers/enqueryController");
@@ -23,6 +25,8 @@ router.route("/sendotp").post(sendOtp);
 router.route("/verifyotp").post(verifyOtp);
 router.route("/logout").post(logout);
 router.route("/zetaMail").post(sendOtpMail);
+router.route("/myacc").get(myaccount)
+router.route("/useraccount").get(userOne)
 
 
 // Payment
