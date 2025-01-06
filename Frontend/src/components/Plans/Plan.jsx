@@ -37,11 +37,15 @@ function Plan() {
   const [usrDta,setUsrDta] = useState({})
 
   useEffect(()=>{
-    const fetchUserData = async () => {
-      await dispatch(userAccounts({ _id })); // Fetch user data from the server
-    };
-
-    fetchUserData();
+    if(_id){
+      const fetchUserData = async () => {
+        await dispatch(userAccounts({ _id })); // Fetch user data from the server
+      };
+      fetchUserData();
+    }
+    
+    
+    
   },[_id, dispatch])
 
   useEffect(() => {

@@ -4,18 +4,15 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// Debugging log for environment variables
-// console.log("Email: ", process.env.EMAIL, "Password: ", process.env.PASSWORD);
-
 // Create a transporter
 const transporter = nodemailer.createTransport(
   {
     service: "gmail",
-    host: "smtp.gmail.com",
+    host: "mail.1zeta.com",
     port: 465,
-    secure: true, // true for 465, false for other ports
+    secure: true,
     auth: {
-      user: "kunalshivhare200@gmail.com", // Gmail address
+      user: "kunalshivhare200@gmail.com",
       pass: "pzegisnuxruxpini"
     },
   },
@@ -27,7 +24,7 @@ const transporter = nodemailer.createTransport(
 
 // Initialize Mailgen
 const MailGenerator = new Mailgen({
-  theme: "cerberus", // Choose the theme, e.g., "default", "cerberus"
+  theme: "default", // Choose the theme, e.g., "default", "cerberus"
   product: {
     name: "1zeta",
     link: "https://1zeta.com", // Company link
@@ -36,10 +33,7 @@ const MailGenerator = new Mailgen({
 
 exports.registerMail = async ({ name, adminEmail, email, otp }) => {
   try {
-    // Generate the email content using Mailgen
-    // console.log("email ",adminEmail , " name ", name , " otp " , otp)
     const emails = adminEmail || email;
-// console.log("rm "+emails)
     let emailTemplate = {
       body: {
         name:"Dear " + name || "User",
@@ -52,9 +46,6 @@ exports.registerMail = async ({ name, adminEmail, email, otp }) => {
 
     const emailBody = MailGenerator.generate(emailTemplate);
 
-    // Message object
-    
-    
     const message = {
       from: `"1zeta" <kunalshivhare200@gmail.com>`,
       to: emails,
@@ -63,29 +54,17 @@ exports.registerMail = async ({ name, adminEmail, email, otp }) => {
     };
 
     // Retry mechanism for email sending
-    const sendEmailWithRetry = async (message, retries = 3) => {
-      // for (let attempt = 1; attempt <= retries; attempt++) {
+    const sendEmailWithRetry = async (message) => {
         try {
           await transporter.sendMail(message);
-          console.log("Email sent successfully on attempt", attempt);
           return { success: true, message: "Email sent successfully" };
         } catch (error) {
           return { success: false, message: "Sent Error" };
-
-          // console.error(
-          //   `Attempt ${attempt} failed. Error:`,
-          //   error.message
-          // );
-          // if (attempt === retries) {
-          //   throw new Error("Failed to send email after retries.");
-          // }
         }
-      // }
     };
 
     // Call the retry function to send the email
     const result = await sendEmailWithRetry(message);
-
     return result;
   } catch (error) {
     console.error("Error in registerMail: ", error.message);

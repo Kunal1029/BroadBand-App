@@ -1,0 +1,226 @@
+.tg {
+    --bg-primary: #207ba1;
+    --text-primary: #207ba1;
+}
+
+.tg-account .account-banner {
+    background: var(--bg-primary);
+    width: 100%;
+    float: left;
+    padding: 100px 0 0;
+}
+
+.tg-account .account-banner .inner-banner .detail * {
+    color: #fff;
+}
+
+.tg-account .account-banner .inner-banner .profile {
+    text-align: center;
+}
+
+.tg-account .account-banner .inner-banner .profile span.image img {
+    width: 130px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px -10px #000;
+}
+
+.tg-account .account-banner .inner-banner .detail h3.user-name {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area {
+    width: 100%;
+    float: left;
+    margin-top: 45px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li a {
+    background: rgba(255, 255, 255, .4);
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0px;
+    font-size: 16px;
+    border: none;
+    padding: 10px 28px;
+    min-width: 120px;
+    display: block;
+    transition: .4s;
+    text-align: center;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li {
+    margin-right: 7px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li a.active,
+.tg-account .account-banner .inner-banner .nav-area ul li a:hover {
+    color: var(--text-primary);
+    background: #fff;
+}
+
+.tg-tabs-content-wrapp {
+    width: 100%;
+    float: left;
+    padding: 30px 0;
+}
+
+div#my-orders-table_length {
+    width: fit-content;
+    float: left;
+}
+
+div#my-orders-table_filter {
+    width: fit-content;
+    float: right;
+}
+
+div#my-orders-table_length select,
+div#my-orders-table_filter input {
+    border: 1px solid #207ba1;
+    padding: 5px 15px;
+}
+
+div#my-orders-table_length,
+div#my-orders-table_filter {
+    margin-bottom: 22px;
+}
+
+.tg-tabs-content-wrapp form.tg-form {
+    width: 100%;
+    float: left;
+    background: #f7f7f7;
+    padding: 30px 30px 60px;
+    border: 1px solid #eaeaea;
+}
+
+.tg-tabs-content-wrapp form.tg-form button {
+    background: var(--bg-primary);
+    border: none;
+    padding: 10px 32px;
+    cursor: pointer;
+    margin: 13px 0 0;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card img {
+    max-width: 80px;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card {
+    text-align: center;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card h2 {
+    font-size: 20px;
+    margin-top: 14px;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card p {
+    font-size: 15px;
+}
+
+div#my-orders-table_info {
+    float: left;
+}
+
+div#my-orders-table_paginate {
+    float: right;
+}
+
+.page-item.active .page-link {
+    background-color: lightgrey !important;
+    border: 1px solid black;
+}
+
+.page-link {
+    color: black !important;
+}
+
+div#my-orders-table_paginate a {
+    background: #e6e6e6;
+    margin: 0 2px;
+    padding: 3px 11px;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+div#my-orders-table_paginate {
+    margin-top: 8px;
+}
+
+div#my-orders-table_paginate span a.current {
+    color: #fff !important;
+    background: var(--primary);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card {
+    cursor: pointer;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card:hover,
+.tg-tabs-content-wrapp .my-account-dashboard .card.active {
+    background: var(--text-primary);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card:hover *,
+.tg-tabs-content-wrapp .my-account-dashboard .card.active * {
+    color: #fff;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card {
+    transition: .4s;
+    border-radius: 0px;
+    box-shadow: 0px 2px 7px -5px;
+}
+
+table#my-orders-table a.view-order {
+    background: var(--text-primary);
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 3px;
+}
+
+@media(min-width:768px) {
+    table#my-orders-table td.action,
+    table#my-orders-table th.action {
+        text-align: center;
+    }
+}
+
+@media(max-width:768px) {
+    .tg-account .account-banner .inner-banner .nav-area ul li a {
+        min-width: auto !important;
+        padding: 8px 15px;
+    }
+}
+
+@media(max-width:600px) {
+    .tg-account .account-banner .inner-banner .nav-area ul li a span {
+        display: none;
+    }
+    .tg-account .account-banner .inner-banner .nav-area ul li a {
+        min-width: auto;
+        padding: 8px 20px;
+    }
+    .tg-account .account-banner .inner-banner .nav-area ul {
+        text-align: center;
+        margin: 0 auto;
+        width: fit-content;
+    }
+    .tg-account .detail {
+        text-align: center;
+    }
+    div#my-orders-table_length select,
+    div#my-orders-table_filter input {
+        max-width: 120px;
+        font-size: 14px;
+    }
+    div#my-orders-table_length label,
+    div#my-orders-table_filter label {
+        font-size: 0px;
+    }
+}
